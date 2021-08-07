@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/main_layout"
+  style="@style/ContentMain.ConstraintLayout"
+  app:layout_behavior="@string/appbar_scrolling_view_behavior"
+  tools:context="dev.kelocen.loadstatus.main.MainActivity"
+  tools:showIn="@layout/activity_main">
+
+  <!-- Radio List -->
+  <RadioGroup
+    android:id="@+id/radio_group_item_list"
+    style="@style/ContentMain.RadioList"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent">
+
+    <!-- Glide Button -->
+    <RadioButton
+      android:id="@+id/radio_button_glide"
+      style="@style/ContentMain.RadioButtons"
+      android:text="@string/glide_by_bumptech"/>
+
+    <!-- Load App Button -->
+    <RadioButton
+      android:id="@+id/radio_button_load_app"
+      style="@style/ContentMain.RadioButtons"
+      android:text="@string/loadapp_by_udacity"/>
+
+    <!-- Retrofit Button -->
+    <RadioButton
+      android:id="@+id/radio_button_retrofit"
+      style="@style/ContentMain.RadioButtons"
+      android:text="@string/retrofit_by_square"/>
+
+  </RadioGroup>
+
+  <!-- Loading Button -->
+  <dev.kelocen.loadstatus.button.LoadingButton
+    android:id="@+id/custom_button"
+    style="@style/ContentMain.LoadingButton"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/radio_group_item_list" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

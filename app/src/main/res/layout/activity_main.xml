@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  style="@style/ActivityMain.CoordinatorLayout"
+  tools:context="dev.kelocen.loadstatus.main.MainActivity">
+
+  <!-- App bar -->
+  <com.google.android.material.appbar.AppBarLayout
+    style="@style/ActivityMain.AppBar"
+    android:theme="@style/Theme.LoadStatus.AppBarOverlay">
+
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+      android:id="@+id/toolbar"
+      style="@style/ActivityMain.Toolbar"
+      app:popupTheme="@style/Theme.LoadStatus.PopupOverlay"
+      app:title="@string/app_name"/>
+
+  </com.google.android.material.appbar.AppBarLayout>
+
+  <include layout="@layout/content_main" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

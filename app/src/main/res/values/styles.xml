@@ -1,0 +1,83 @@
+<resources>
+  <!-- Top Level Style -->
+  <style name="ApplicationStyle" parent="Theme.LoadStatus" />
+  <!-- - - - - - = = = = = = = = = = = = Main Activity Layout = = = = = = = = = = = = - - - - - -->
+  <!-- Coordinator Layout -->
+  <style name="ActivityMain.CoordinatorLayout" parent="ApplicationStyle">
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:layout_width">match_parent</item>
+  </style>
+  <!-- App Bar -->
+  <style name="ActivityMain.AppBar" parent="ApplicationStyle">
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_width">match_parent</item>
+  </style>
+  <!-- Toolbar -->
+  <style name="ActivityMain.Toolbar" parent="ApplicationStyle">
+    <item name="android:layout_height">?attr/actionBarSize</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:background">?attr/colorPrimary</item>
+  </style>
+  <!-- - - - - - = = = = = = = = = = = = Detail Activity Layout = = = = = = = = = = = = - - - - - -->
+  <!-- Coordinator Layout -->
+  <style name="ActivityDetail.CoordinatorLayout" parent="ApplicationStyle">
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:layout_width">match_parent</item>
+  </style>
+  <!-- App Bar -->
+  <style name="ActivityDetail.AppBar" parent="ApplicationStyle">
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_width">match_parent</item>
+  </style>
+  <!-- Toolbar -->
+  <style name="ActivityDetail.Toolbar" parent="ApplicationStyle">
+    <item name="android:layout_height">?attr/actionBarSize</item>
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:background">?attr/colorPrimary</item>
+  </style>
+  <!-- Okay Button -->
+  <style name="ActivityDetail.ButtonOkay" parent="ApplicationStyle">
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_margin">@dimen/button_okay_margin</item>
+    <item name="android:layout_gravity">bottom|center</item>
+    <item name="android:textAllCaps">true</item>
+    <item name="android:text">@string/okay_button</item>
+  </style>
+  <!-- - - - - - = = = = = = = = = = = = Main Content Layout = = = = = = = = = = = = - - - - - -->
+  <!-- Constraint Layout -->
+  <style name="ContentMain.ConstraintLayout" parent="ApplicationStyle">
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:paddingStart">@dimen/default_padding</item>
+    <item name="android:paddingEnd">@dimen/default_padding</item>
+    <item name="android:paddingBottom">@dimen/default_padding</item>
+  </style>
+  <!-- Loading Button -->
+  <style name="ContentMain.LoadingButton" parent="ApplicationStyle">
+    <item name="android:layout_height">60dp</item>
+    <item name="android:layout_width">0dp</item>
+    <item name="android:layout_margin">20dp</item>
+  </style>
+  <!-- Radio List -->
+  <style name="ContentMain.RadioList" parent="Theme.LoadStatus">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:gravity">center_vertical</item>
+  </style>
+  <!-- Radio Buttons -->
+  <style name="ContentMain.RadioButtons" parent="Theme.LoadStatus">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginBottom">@dimen/radio_button_margin_bottom</item>
+  </style>
+  <!-- - - - - - = = = = = = = = = = = = Detail Content Layout = = = = = = = = = = = = - - - - - -->
+  <!-- Constraint Layout -->
+  <style name="ContentDetail.ConstraintLayout" parent="ApplicationStyle">
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:paddingStart">@dimen/default_padding</item>
+    <item name="android:paddingEnd">@dimen/default_padding</item>
+    <item name="android:paddingBottom">@dimen/default_padding</item>
+  </style>
+</resources>

@@ -39,7 +39,7 @@
 
   <!-- Loading Button -->
   <dev.kelocen.loadstatus.button.LoadingButton
-    android:id="@+id/custom_button"
+    android:id="@+id/custom_button_download"
     style="@style/ContentMain.LoadingButton"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"

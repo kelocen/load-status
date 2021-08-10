@@ -42,7 +42,7 @@
     <item name="android:layout_margin">@dimen/button_okay_margin</item>
     <item name="android:layout_gravity">bottom|center</item>
     <item name="android:textAllCaps">true</item>
-    <item name="android:text">@string/okay_button</item>
+    <item name="android:text">@string/button_okay</item>
   </style>
   <!-- - - - - - = = = = = = = = = = = = Main Content Layout = = = = = = = = = = = = - - - - - -->
   <!-- Constraint Layout -->

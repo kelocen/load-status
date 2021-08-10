@@ -23,7 +23,7 @@
   <Button
     android:id="@+id/button_okay"
     style="@style/ActivityDetail.ButtonOkay"
-    android:contentDescription="@string/okay_button" />
+    android:contentDescription="@string/button_okay" />
 
   <include layout="@layout/content_detail" />
 

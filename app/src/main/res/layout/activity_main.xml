@@ -15,10 +15,11 @@
       android:id="@+id/toolbar"
       style="@style/ActivityMain.Toolbar"
       app:popupTheme="@style/Theme.LoadStatus.PopupOverlay"
-      app:title="@string/app_name"/>
+      app:title="@string/app_name" />
 
   </com.google.android.material.appbar.AppBarLayout>
 
+  <!-- Content Main Layout -->
   <include layout="@layout/content_main" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

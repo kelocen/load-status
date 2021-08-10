@@ -1,7 +1,9 @@
 <resources>
-  <!--  -->
+  <!-- Application -->
   <string name="app_name">Load Status</string>
   <string name="app_description">Download files from Internet</string>
+
+  <!-- Menu -->
   <string name="action_settings">Settings</string>
 
   <!-- Notifications -->
@@ -9,14 +11,16 @@
   <string name="notification_description">The Project 3 repository is downloaded</string>
   <string name="notification_button">See changes</string>
 
-  <string name="button_name">Click me</string>
-  <string name="button_loading">We are loading </string>
+  <!-- Detail Screen -->
   <string name="title_activity_detail">DetailActivity</string>
-  <string name="okay_button">Okay</string>
+  <string name="button_okay">Okay</string>
 
-  <!-- Content Main -->
+  <!-- Main Screen -->
   <string name="glide_by_bumptech">Glide - Image Loading Library by BumpTech.</string>
   <string name="loadapp_by_udacity">LoadApp - Current repository by Udacity.</string>
   <string name="retrofit_by_square">Retrofit - Type-safe HTTP client for Android and Java by Square, Inc.</string>
   <string name="loading_button_text">Download</string>
+  <string name="button_name">Click me</string>
+  <string name="button_loading">We are loading </string>
+  <string name="instruct_to_download">Please select the file to download.</string>
 </resources>

@@ -57,16 +57,10 @@ class MainActivity : AppCompatActivity() {
      */
     private fun setupDownloadButton() {
         content.customButtonDownload.setOnClickListener {
-            if (content.radioGroupItemList.checkedRadioButtonId == -1) {
+            if (content.radioGroupItemList.checkedRadioButtonId == -1 || url.isNullOrEmpty()) {
                 displayInstructionToast()
             } else {
                 download = Download(url, getDownload(this, url))
-                /*
-                Display a toast to show the URL and download ID.
-                 */
-                Toast.makeText(this,
-                        "URL: " + download.url + "\nID: " + download.downloadId.toString(),
-                        Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -76,7 +70,8 @@ class MainActivity : AppCompatActivity() {
      * Displays a toast message that instructs the user to select an item to download.
      */
     private fun displayInstructionToast() {
-        Toast.makeText(this, getString(R.string.instruct_to_download), Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.instruct_to_download), Toast.LENGTH_SHORT)
+            .show()
     }
 
     override fun onDestroy() {

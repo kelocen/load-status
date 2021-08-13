@@ -7,9 +7,12 @@
   <string name="action_settings">Settings</string>
 
   <!-- Notifications -->
-  <string name="notification_title">Udacity: Android Kotlin Nanodegree </string>
-  <string name="notification_description">The Project 3 repository is downloaded</string>
-  <string name="notification_button">See changes</string>
+  <string name="notification_channel_name">Download</string>
+  <string name="notification_channel_id">download_channel</string>
+  <string name="notification_title">Load Status: Downloads &amp; Notifications</string>
+  <string name="notification_description">Your download has completed.</string>
+  <string name="notification_error">An error has occurred.</string>
+  <string name="notification_button">Check the status.</string>
 
   <!-- Detail Screen -->
   <string name="title_activity_detail">DetailActivity</string>

@@ -1,7 +1,9 @@
 package dev.kelocen.loadstatus.main
 
 import android.app.DownloadManager
+import android.app.NotificationChannel
 import android.content.IntentFilter
+import android.os.Build
 import android.os.Bundle
 import android.view.View.OnClickListener
 import android.widget.RadioGroup.OnCheckedChangeListener
@@ -14,8 +16,10 @@ import dev.kelocen.loadstatus.download.Download
 import dev.kelocen.loadstatus.util.Constants.URL_BUMPTECH_GLIDE
 import dev.kelocen.loadstatus.util.Constants.URL_LOAD_APP
 import dev.kelocen.loadstatus.util.Constants.URL_RETROFIT
+import dev.kelocen.loadstatus.util.createChannel
 import dev.kelocen.loadstatus.util.downloadReceiver
 import dev.kelocen.loadstatus.util.getDownload
+
 
 /**
  * The main activity for the Load Status application.
@@ -34,8 +38,19 @@ class MainActivity : AppCompatActivity() {
         setContentView(activity.root)
         setSupportActionBar(activity.toolbar)
         registerReceiver(downloadReceiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
+        setupNotificationChannel()
         setupOnCheckedListener()
         setupDownloadButton()
+    }
+
+    /**
+     * Creates the download [NotificationChannel].
+     */
+    private fun setupNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createChannel(this, resources.getString(R.string.notification_channel_id),
+                    resources.getString(R.string.notification_channel_name))
+        }
     }
 
     /**
@@ -60,11 +75,11 @@ class MainActivity : AppCompatActivity() {
             if (content.radioGroupItemList.checkedRadioButtonId == -1 || url.isNullOrEmpty()) {
                 displayInstructionToast()
             } else {
-                download = Download(url, getDownload(this, url))
+                download = Download(url, getDownload(this, url),
+                        getString(R.string.notification_channel_id))
             }
         }
     }
-
 
     /**
      * Displays a toast message that instructs the user to select an item to download.

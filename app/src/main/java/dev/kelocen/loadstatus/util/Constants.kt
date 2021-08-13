@@ -10,4 +10,9 @@ object Constants {
     const val URL_LOAD_APP =
         "https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter/archive/master.zip"
     const val URL_RETROFIT = "https://github.com/square/retrofit"
+
+    // Notification Constants
+    const val NOTIFICATION_ID = 0
+    const val REQUEST_CODE = 0
+    const val FLAGS = 0
 }

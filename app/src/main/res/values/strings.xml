@@ -12,7 +12,7 @@
   <string name="notification_title">Load Status: Downloads &amp; Notifications</string>
   <string name="notification_description">Your download has completed.</string>
   <string name="notification_error">An error has occurred.</string>
-  <string name="notification_button">Check the status.</string>
+  <string name="notification_button">Check Status</string>
 
   <!-- Detail Screen -->
   <string name="title_activity_detail">DetailActivity</string>

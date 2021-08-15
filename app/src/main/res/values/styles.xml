@@ -37,12 +37,14 @@
   </style>
   <!-- Okay Button -->
   <style name="ActivityDetail.ButtonOkay" parent="ApplicationStyle">
-    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_height">@dimen/button_ok_height</item>
     <item name="android:layout_width">match_parent</item>
-    <item name="android:layout_margin">@dimen/button_okay_margin</item>
+    <item name="android:layout_margin">@dimen/button_ok_margin</item>
     <item name="android:layout_gravity">bottom|center</item>
     <item name="android:textAllCaps">true</item>
     <item name="android:text">@string/button_okay</item>
+    <item name="android:textColor">@color/white</item>
+    <item name="android:backgroundTint">@color/colorAccent</item>
   </style>
   <!-- - - - - - = = = = = = = = = = = = Main Content Layout = = = = = = = = = = = = - - - - - -->
   <!-- Constraint Layout -->
@@ -55,9 +57,9 @@
   </style>
   <!-- Loading Button -->
   <style name="ContentMain.LoadingButton" parent="ApplicationStyle">
-    <item name="android:layout_height">60dp</item>
-    <item name="android:layout_width">0dp</item>
-    <item name="android:layout_margin">20dp</item>
+    <item name="android:layout_height">@dimen/button_loading_height</item>
+    <item name="android:layout_width">@dimen/button_loading_width</item>
+    <item name="android:layout_margin">@dimen/button_layout_margin</item>
   </style>
   <!-- Radio List -->
   <style name="ContentMain.RadioList" parent="Theme.LoadStatus">

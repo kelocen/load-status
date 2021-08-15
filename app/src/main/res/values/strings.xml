@@ -16,7 +16,7 @@
 
   <!-- Detail Screen -->
   <string name="title_activity_detail">DetailActivity</string>
-  <string name="button_okay">Okay</string>
+  <string name="button_okay">OK</string>
 
   <!-- Main Screen -->
   <string name="glide_by_bumptech">Glide - Image Loading Library by BumpTech.</string>

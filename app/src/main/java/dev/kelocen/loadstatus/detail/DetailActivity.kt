@@ -23,6 +23,7 @@ class DetailActivity : AppCompatActivity() {
         setContentView(detail.root)
         setSupportActionBar(detail.toolbar)
         cancelNotifications()
+        setupOkayButton()
     }
 
     /**
@@ -32,5 +33,14 @@ class DetailActivity : AppCompatActivity() {
         val notificationManager =
             ContextCompat.getSystemService(this, NotificationManager::class.java)
         notificationManager?.cancelNotifications()
+    }
+
+    /**
+     * Configures the OK button for the detail screen.
+     */
+    private fun setupOkayButton() {
+        detail.buttonOk.setOnClickListener {
+            onBackPressed()
+        }
     }
 }

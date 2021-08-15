@@ -21,7 +21,7 @@
 
   <!-- Okay Button -->
   <Button
-    android:id="@+id/button_okay"
+    android:id="@+id/button_ok"
     style="@style/ActivityDetail.ButtonOkay"
     android:contentDescription="@string/button_okay" />
 

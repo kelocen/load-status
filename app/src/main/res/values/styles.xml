@@ -42,7 +42,7 @@
     <item name="android:layout_margin">@dimen/button_ok_margin</item>
     <item name="android:layout_gravity">bottom|center</item>
     <item name="android:textAllCaps">true</item>
-    <item name="android:text">@string/button_okay</item>
+    <item name="android:text">@string/label_button_ok</item>
     <item name="android:textColor">@color/white</item>
     <item name="android:backgroundTint">@color/colorAccent</item>
   </style>

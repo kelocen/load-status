@@ -21,19 +21,19 @@
     <RadioButton
       android:id="@+id/radio_button_glide"
       style="@style/ContentMain.RadioButtons"
-      android:text="@string/glide_by_bumptech"/>
+      android:text="@string/text_glide_by_bumptech" />
 
     <!-- Load App Button -->
     <RadioButton
       android:id="@+id/radio_button_load_app"
       style="@style/ContentMain.RadioButtons"
-      android:text="@string/loadapp_by_udacity"/>
+      android:text="@string/text_loadapp_by_udacity" />
 
     <!-- Retrofit Button -->
     <RadioButton
       android:id="@+id/radio_button_retrofit"
       style="@style/ContentMain.RadioButtons"
-      android:text="@string/retrofit_by_square"/>
+      android:text="@string/text_retrofit_by_square" />
 
   </RadioGroup>
 
@@ -44,6 +44,9 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/radio_group_item_list" />
+    app:defaultButtonPaint="@color/colorPrimary"
+    app:defaultTextPaint="@color/white"
+    app:layout_constraintTop_toBottomOf="@+id/radio_group_item_list"
+    app:loadingButtonPaint="@color/colorPrimaryDark" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

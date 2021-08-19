@@ -2,39 +2,39 @@ package dev.kelocen.loadstatus.button
 
 import android.animation.ValueAnimator
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
+import android.view.animation.LinearInterpolator
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.content.withStyledAttributes
 import dev.kelocen.loadstatus.R
 import kotlin.properties.Delegates
 
 /**
  * A [View] subclass for the loading button.
  */
-class LoadingButton @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null,
-                                              defStyleAttr: Int = 0) : View(context, attrs, defStyleAttr) {
-    private var widthSize = 0
-    private var heightSize = 0
-    private val valueAnimator = ValueAnimator()
-
-    private lateinit var canvas: Canvas
-    private lateinit var bitmap: Bitmap
+class LoadingButton @JvmOverloads constructor(
+        context: Context, attrs: AttributeSet? = null,
+        defStyleAttr: Int = 0,
+) :
+    View(context, attrs, defStyleAttr) {
+    private var widthSize = 0f
+    private var heightSize = 0f
+    private var animationWidthSize = 0f
+    private var defaultPaintColor = 0
+    private var loadingPaintColor = 0
+    private var textPaintColor = 0
+    private var defaultButtonText: String
+    private var loadingButtonText: String
 
     /**
-     * A [Paint] object for the default button color.
+     * A [Paint] object for the button color and style.
      */
-    private var defaultButtonPaint = Paint().apply {
+    private var customButtonPaint = Paint().apply {
         color = ResourcesCompat.getColor(resources, R.color.colorPrimary, null)
-    }
-
-    /**
-     * A [Paint] object for the loading button color.
-     */
-    private var loadingButtonPaint = Paint().apply {
-        color = ResourcesCompat.getColor(resources, R.color.colorPrimaryDark, null)
     }
 
     /**
@@ -52,27 +52,79 @@ class LoadingButton @JvmOverloads constructor(context: Context, attrs: Attribute
     /**
      * A [ButtonState] object by [Delegates] to observe the button state.
      */
-    private var buttonState: ButtonState by Delegates.observable(
-            ButtonState.Completed) { _, _, new ->
+    var buttonState: ButtonState by Delegates.observable(
+            ButtonState.Completed) { _, _, newButtonState ->
+        if (newButtonState == ButtonState.Clicked) {
+            buttonState = ButtonState.Loading
+        } else if (newButtonState == ButtonState.Loading) {
+            getAnimationWidthSize()
+        }
     }
 
     init {
-
+        context.withStyledAttributes(attrs, R.styleable.LoadingButton) {
+            defaultPaintColor = getColor(R.styleable.LoadingButton_defaultButtonPaint, 0)
+            loadingPaintColor = getColor(R.styleable.LoadingButton_loadingButtonPaint, 0)
+            textPaintColor = getColor(R.styleable.LoadingButton_defaultTextPaint, 0)
+        }
+        defaultButtonText = resources.getString(R.string.label_default_button_text)
+        loadingButtonText = resources.getString(R.string.label_loading_button_text)
     }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        drawDefaultButton(canvas)
+        drawLoadingButton(canvas)
     }
 
     /**
-     * Draws the default loading button.
+     * Draws the [LoadingButton] using the given [Canvas] and [buttonState].
      */
-    private fun drawDefaultButton(canvas: Canvas?) {
-        canvas?.drawRect(0f, 0f, widthSize.toFloat(), heightSize.toFloat(), defaultButtonPaint)
-        canvas?.drawText(resources.getString(R.string.loading_button_text),
-                (widthSize / 2).toFloat(),
+    private fun drawLoadingButton(canvas: Canvas?) {
+        if (buttonState == ButtonState.Completed) {
+            customButtonPaint.color = defaultPaintColor
+            canvas?.drawRect(drawButtonRectF(), customButtonPaint)
+            drawButtonText(canvas, defaultButtonText)
+        } else if (buttonState == ButtonState.Loading) {
+            customButtonPaint.color = loadingPaintColor
+            canvas?.drawRect(drawButtonRectF(right = animationWidthSize), customButtonPaint)
+            drawButtonText(canvas, loadingButtonText)
+        }
+    }
+
+    /**
+     * Returns the [RectF] for the [LoadingButton].
+     */
+    private fun drawButtonRectF(
+            left: Float = 0f, top: Float = 0f, right: Float = widthSize,
+            bottom: Float = heightSize,
+    ): RectF {
+        return RectF(left, top, right, bottom)
+    }
+
+    /**
+     * Draws the text for the [LoadingButton] with the given [Canvas].
+     */
+    private fun drawButtonText(canvas: Canvas?, buttonText: String) {
+        canvas?.drawText(buttonText, (widthSize / 2),
                 (heightSize / 2) - ((textPaint.descent() + textPaint.ascent() / 2)), textPaint)
+    }
+
+    /**
+     * Uses a [ValueAnimator] to animate the [LoadingButton] by updating the [animationWidthSize].
+     *
+     */
+    private fun getAnimationWidthSize() {
+        ValueAnimator.ofFloat(0f, widthSize).apply {
+            duration = 1400
+            interpolator = LinearInterpolator()
+            addUpdateListener {
+                animationWidthSize = it.animatedValue as Float
+                if (animationWidthSize >= widthSize) {
+                    buttonState = ButtonState.Completed
+                }
+                invalidate()
+            }
+        }.start()
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -83,8 +135,8 @@ class LoadingButton @JvmOverloads constructor(context: Context, attrs: Attribute
                 heightMeasureSpec,
                 0
         )
-        widthSize = w
-        heightSize = h
+        widthSize = w.toFloat()
+        heightSize = h.toFloat()
         setMeasuredDimension(w, h)
     }
 }

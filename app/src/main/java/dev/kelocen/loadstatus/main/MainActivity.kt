@@ -10,6 +10,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import dev.kelocen.loadstatus.R
+import dev.kelocen.loadstatus.button.ButtonState
 import dev.kelocen.loadstatus.databinding.ActivityMainBinding
 import dev.kelocen.loadstatus.databinding.ContentMainBinding
 import dev.kelocen.loadstatus.download.Download
@@ -20,7 +21,6 @@ import dev.kelocen.loadstatus.util.createChannel
 import dev.kelocen.loadstatus.util.downloadReceiver
 import dev.kelocen.loadstatus.util.getDownload
 
-
 /**
  * The main activity for the Load Status application.
  */
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var activity: ActivityMainBinding
     private lateinit var content: ContentMainBinding
-    private lateinit var download: Download
+    private var download = Download()
     private var url: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Configures the [OnCheckedChangeListener] for the radio group.
+     * Configures the [OnCheckedChangeListener] for the radio group and assigns a value to [url].
      */
     private fun setupOnCheckedListener() {
         content.radioGroupItemList.setOnCheckedChangeListener { _, checkedId ->
@@ -75,8 +75,10 @@ class MainActivity : AppCompatActivity() {
             if (content.radioGroupItemList.checkedRadioButtonId == -1 || url.isNullOrEmpty()) {
                 displayInstructionToast()
             } else {
-                download = Download(url, getDownload(this, url),
-                        getString(R.string.notification_channel_id))
+                content.customButtonDownload.buttonState = ButtonState.Clicked
+                download.url = url
+                download.downloadId = getDownload(this, url)
+                download.channelID = getString(R.string.notification_channel_id)
             }
         }
     }
@@ -85,7 +87,7 @@ class MainActivity : AppCompatActivity() {
      * Displays a toast message that instructs the user to select an item to download.
      */
     private fun displayInstructionToast() {
-        Toast.makeText(this, getString(R.string.instruct_to_download), Toast.LENGTH_SHORT)
+        Toast.makeText(this, getString(R.string.toast_instruct_to_download), Toast.LENGTH_SHORT)
             .show()
     }
 

@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import dev.kelocen.loadstatus.R
 import dev.kelocen.loadstatus.button.ButtonState
+import dev.kelocen.loadstatus.button.LoadingButton
 import dev.kelocen.loadstatus.databinding.ActivityMainBinding
 import dev.kelocen.loadstatus.databinding.ContentMainBinding
 import dev.kelocen.loadstatus.download.Download
@@ -48,8 +49,9 @@ class MainActivity : AppCompatActivity() {
      */
     private fun setupNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            createChannel(this, resources.getString(R.string.notification_channel_id),
-                    resources.getString(R.string.notification_channel_name))
+            createChannel(this,
+                          resources.getString(R.string.notification_channel_id),
+                          resources.getString(R.string.notification_channel_name))
         }
     }
 
@@ -68,7 +70,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Configures the [OnClickListener] for the download button.
+     * Configures the [OnClickListener] for the [LoadingButton].
      */
     private fun setupDownloadButton() {
         content.customButtonDownload.setOnClickListener {
@@ -84,11 +86,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Displays a toast message that instructs the user to select an item to download.
+     * Displays a [Toast] that instructs the user to select an item to download.
      */
     private fun displayInstructionToast() {
         Toast.makeText(this, getString(R.string.toast_instruct_to_download), Toast.LENGTH_SHORT)
-            .show()
+                .show()
     }
 
     override fun onDestroy() {

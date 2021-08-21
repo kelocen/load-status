@@ -18,7 +18,7 @@ private var downloadId: Long = 0
  */
 fun getDownload(context: Context, downloadUrl: String?): Long {
     downloadManager =
-        context.getSystemService(AppCompatActivity.DOWNLOAD_SERVICE) as DownloadManager
+            context.getSystemService(AppCompatActivity.DOWNLOAD_SERVICE) as DownloadManager
     downloadId = downloadManager.enqueue(getRequest(context, downloadUrl))
     return downloadId
 }
@@ -28,11 +28,11 @@ fun getDownload(context: Context, downloadUrl: String?): Long {
  */
 fun getRequest(context: Context, downloadUrl: String?): DownloadManager.Request {
     return DownloadManager.Request(Uri.parse(downloadUrl))
-        .setTitle(context.getString(R.string.app_name))
-        .setDescription(context.getString(R.string.app_description))
-        .setRequiresCharging(false)
-        .setAllowedOverMetered(true)
-        .setAllowedOverRoaming(true)
+            .setTitle(context.getString(R.string.app_name))
+            .setDescription(context.getString(R.string.app_description))
+            .setRequiresCharging(false)
+            .setAllowedOverMetered(true)
+            .setAllowedOverRoaming(true)
 }
 
 /**
@@ -42,15 +42,15 @@ var downloadReceiver = object : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent?) {
         val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
         val notificationManager =
-            ContextCompat.getSystemService(context, NotificationManager::class.java)
+                ContextCompat.getSystemService(context, NotificationManager::class.java)
         if (downloadId == id) {
             val downloadStatus = getDownloadStatus()
             if (downloadStatus == DownloadManager.STATUS_SUCCESSFUL) {
-                notificationManager?.sendNotification(
-                        context.getString(R.string.notification_description), context)
+                notificationManager?.sendNotification(context.getString(R.string.notification_description),
+                                                      context)
             } else {
-                notificationManager?.sendNotification(
-                        context.getString(R.string.notification_error), context)
+                notificationManager?.sendNotification(context.getString(R.string.notification_error),
+                                                      context)
             }
         }
     }

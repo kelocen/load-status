@@ -8,45 +8,51 @@ import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.LinearInterpolator
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.content.withStyledAttributes
 import dev.kelocen.loadstatus.R
 import kotlin.properties.Delegates
 
 /**
- * A [View] subclass for the loading button.
+ * A [View] subclass for the custom button.
  */
 class LoadingButton @JvmOverloads constructor(
-        context: Context, attrs: AttributeSet? = null,
+        context: Context,
+        attrs: AttributeSet? = null,
         defStyleAttr: Int = 0,
 ) :
-    View(context, attrs, defStyleAttr) {
+        View(context, attrs, defStyleAttr) {
     private var widthSize = 0f
     private var heightSize = 0f
-    private var animationWidthSize = 0f
+    private var animationButtonWidth = 0f
+    private var animationCircleAngle = 0f
     private var defaultPaintColor = 0
     private var loadingPaintColor = 0
     private var textPaintColor = 0
+    private var loadingCircleColor = 0
     private var defaultButtonText: String
     private var loadingButtonText: String
 
     /**
-     * A [Paint] object for the button color and style.
+     * A [Paint] object for the button style.
      */
-    private var customButtonPaint = Paint().apply {
-        color = ResourcesCompat.getColor(resources, R.color.colorPrimary, null)
+    private var customButtonPaint = Paint()
+
+    /**
+     * A [Paint] object for the text style.
+     */
+    private var textPaint = Paint().apply {
+        isAntiAlias = true
+        isDither = true
+        textSize = 60f
+        textAlign = Paint.Align.CENTER
     }
 
     /**
-     * A [Paint] object for the text color and style.
+     * A [Paint] object for the loading circle style.
      */
-    private var textPaint = Paint().apply {
-        color = ResourcesCompat.getColor(resources, R.color.white, null)
+    private var customCirclePaint = Paint().apply {
         isAntiAlias = true
         isDither = true
-        style = Paint.Style.FILL
-        textSize = 50f
-        textAlign = Paint.Align.CENTER
     }
 
     /**
@@ -57,36 +63,40 @@ class LoadingButton @JvmOverloads constructor(
         if (newButtonState == ButtonState.Clicked) {
             buttonState = ButtonState.Loading
         } else if (newButtonState == ButtonState.Loading) {
-            getAnimationWidthSize()
+            updateAnimationWidth()
+            updateAnimationAngle()
         }
     }
 
     init {
         context.withStyledAttributes(attrs, R.styleable.LoadingButton) {
-            defaultPaintColor = getColor(R.styleable.LoadingButton_defaultButtonPaint, 0)
-            loadingPaintColor = getColor(R.styleable.LoadingButton_loadingButtonPaint, 0)
-            textPaintColor = getColor(R.styleable.LoadingButton_defaultTextPaint, 0)
+            textPaintColor = getColor(R.styleable.LoadingButton_paintDefaultText, 0)
+            defaultPaintColor = getColor(R.styleable.LoadingButton_paintDefaultButton, 0)
+            loadingPaintColor = getColor(R.styleable.LoadingButton_paintLoadingButton, 0)
+            loadingCircleColor = getColor(R.styleable.LoadingButton_paintLoadingCircle, 0)
         }
         defaultButtonText = resources.getString(R.string.label_default_button_text)
         loadingButtonText = resources.getString(R.string.label_loading_button_text)
+        textPaint.color = textPaintColor
     }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         drawLoadingButton(canvas)
+        drawLoadingCircle(canvas)
     }
 
     /**
      * Draws the [LoadingButton] using the given [Canvas] and [buttonState].
      */
     private fun drawLoadingButton(canvas: Canvas?) {
+        customButtonPaint.color = defaultPaintColor
+        canvas?.drawRect(drawButtonRectF(), customButtonPaint)
         if (buttonState == ButtonState.Completed) {
-            customButtonPaint.color = defaultPaintColor
-            canvas?.drawRect(drawButtonRectF(), customButtonPaint)
             drawButtonText(canvas, defaultButtonText)
         } else if (buttonState == ButtonState.Loading) {
             customButtonPaint.color = loadingPaintColor
-            canvas?.drawRect(drawButtonRectF(right = animationWidthSize), customButtonPaint)
+            canvas?.drawRect(drawButtonRectF(right = animationButtonWidth), customButtonPaint)
             drawButtonText(canvas, loadingButtonText)
         }
     }
@@ -95,7 +105,9 @@ class LoadingButton @JvmOverloads constructor(
      * Returns the [RectF] for the [LoadingButton].
      */
     private fun drawButtonRectF(
-            left: Float = 0f, top: Float = 0f, right: Float = widthSize,
+            left: Float = 0f,
+            top: Float = 0f,
+            right: Float = widthSize,
             bottom: Float = heightSize,
     ): RectF {
         return RectF(left, top, right, bottom)
@@ -105,21 +117,61 @@ class LoadingButton @JvmOverloads constructor(
      * Draws the text for the [LoadingButton] with the given [Canvas].
      */
     private fun drawButtonText(canvas: Canvas?, buttonText: String) {
-        canvas?.drawText(buttonText, (widthSize / 2),
-                (heightSize / 2) - ((textPaint.descent() + textPaint.ascent() / 2)), textPaint)
+        canvas?.drawText(buttonText,
+                         (widthSize / 2),
+                         (heightSize / 2) - ((textPaint.ascent() + textPaint.descent()) / 2),
+                         textPaint)
     }
 
     /**
-     * Uses a [ValueAnimator] to animate the [LoadingButton] by updating the [animationWidthSize].
-     *
+     * Uses a [ValueAnimator] to animate the [LoadingButton] by updating the [animationButtonWidth].
      */
-    private fun getAnimationWidthSize() {
+    private fun updateAnimationWidth() {
         ValueAnimator.ofFloat(0f, widthSize).apply {
-            duration = 1400
+            duration = 1750
             interpolator = LinearInterpolator()
             addUpdateListener {
-                animationWidthSize = it.animatedValue as Float
-                if (animationWidthSize >= widthSize) {
+                animationButtonWidth = it.animatedValue as Float
+                if (animationButtonWidth == widthSize) {
+                    buttonState = ButtonState.Completed
+                }
+                invalidate()
+            }
+        }.start()
+    }
+
+    /**
+     * Draws the loading circle for the [LoadingButton] with the given [Canvas].
+     */
+    private fun drawLoadingCircle(canvas: Canvas?) {
+        if (buttonState == ButtonState.Loading) {
+            customCirclePaint.color = loadingCircleColor
+            canvas?.drawArc(drawCircleRectF(), 0f, animationCircleAngle, true, customCirclePaint)
+        }
+    }
+
+    /**
+     * Returns the [RectF] used for the loading circle.
+     */
+    private fun drawCircleRectF(
+            left: Float = widthSize / 2 + (textPaint.measureText(loadingButtonText) / 1.9f),
+            top: Float = heightSize / 2 + textPaint.ascent() - ((textPaint.ascent() + textPaint.descent()) / 2),
+            right: Float = widthSize / 2 + (textPaint.measureText(loadingButtonText) * 0.795f),
+            bottom: Float = heightSize / 2 + textPaint.descent() - ((textPaint.ascent() + textPaint.descent()) / 2),
+    ): RectF {
+        return RectF(left, top, right, bottom)
+    }
+
+    /**
+     * Uses a [ValueAnimator] to animate the loading circle by updating the [animationCircleAngle].
+     */
+    private fun updateAnimationAngle() {
+        ValueAnimator.ofFloat(0f, 360f).apply {
+            duration = 1700
+            interpolator = LinearInterpolator()
+            addUpdateListener {
+                animationCircleAngle = it.animatedValue as Float
+                if (animationCircleAngle >= 360f) {
                     buttonState = ButtonState.Completed
                 }
                 invalidate()

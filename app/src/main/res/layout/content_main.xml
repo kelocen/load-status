@@ -12,10 +12,10 @@
   <RadioGroup
     android:id="@+id/radio_group_item_list"
     style="@style/ContentMain.RadioList"
-    app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent">
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
 
     <!-- Glide Button -->
     <RadioButton
@@ -44,9 +44,10 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:defaultButtonPaint="@color/colorPrimary"
-    app:defaultTextPaint="@color/white"
     app:layout_constraintTop_toBottomOf="@+id/radio_group_item_list"
-    app:loadingButtonPaint="@color/colorPrimaryDark" />
+    app:paintDefaultButton="@color/colorPrimary"
+    app:paintDefaultText="@color/white"
+    app:paintLoadingButton="@color/colorPrimaryDark"
+    app:paintLoadingCircle="@color/colorAccent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

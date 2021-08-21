@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <declare-styleable name="LoadingButton">
-    <attr format="color" name="defaultButtonPaint" />
-    <attr format="color" name="loadingButtonPaint" />
-    <attr format="color" name="defaultTextPaint" />
+    <attr format="color" name="paintDefaultButton" />
+    <attr format="color" name="paintLoadingButton" />
+    <attr format="color" name="paintDefaultText" />
+    <attr format="color" name="paintLoadingCircle" />
   </declare-styleable>
 </resources>

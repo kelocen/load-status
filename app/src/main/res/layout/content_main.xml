@@ -21,19 +21,19 @@
     <RadioButton
       android:id="@+id/radio_button_glide"
       style="@style/ContentMain.RadioButtons"
-      android:text="@string/text_glide_by_bumptech" />
+      android:text="@string/main_text_glide_by_bumptech" />
 
     <!-- Load App Button -->
     <RadioButton
       android:id="@+id/radio_button_load_app"
       style="@style/ContentMain.RadioButtons"
-      android:text="@string/text_loadapp_by_udacity" />
+      android:text="@string/main_text_loadapp_by_udacity" />
 
     <!-- Retrofit Button -->
     <RadioButton
       android:id="@+id/radio_button_retrofit"
       style="@style/ContentMain.RadioButtons"
-      android:text="@string/text_retrofit_by_square" />
+      android:text="@string/main_text_retrofit_by_square" />
 
   </RadioGroup>
 

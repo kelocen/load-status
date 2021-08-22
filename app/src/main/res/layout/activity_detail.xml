@@ -15,6 +15,7 @@
       android:id="@+id/toolbar"
       style="@style/ActivityDetail.Toolbar"
       app:popupTheme="@style/Theme.LoadStatus.PopupOverlay"
+      app:subtitle="@string/detail_activity_subtitle"
       app:title="@string/app_name" />
 
   </com.google.android.material.appbar.AppBarLayout>
@@ -23,7 +24,7 @@
   <Button
     android:id="@+id/button_ok"
     style="@style/ActivityDetail.ButtonOkay"
-    android:contentDescription="@string/label_button_ok" />
+    android:contentDescription="@string/detail_label_button_ok" />
 
   <!-- Content Detail Layout -->
   <include

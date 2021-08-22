@@ -2,7 +2,6 @@
   <!-- Application -->
   <string name="app_name">Load Status</string>
   <string name="app_description">Download files from Internet</string>
-
   <!-- Notifications -->
   <string name="notification_channel_name">Download</string>
   <string name="notification_channel_id">download_channel</string>
@@ -10,20 +9,21 @@
   <string name="notification_description">Your download has completed.</string>
   <string name="notification_error">An error has occurred.</string>
   <string name="notification_button">Check Status</string>
-
   <!-- Detail Screen -->
-  <string name="title_activity_detail">DetailActivity</string>
-  <string name="label_button_ok">OK</string>
-
+  <string name="detail_activity_subtitle">File Details</string>
+  <string name="detail_label_button_ok">OK</string>
+  <string name="detail_text_file_name_label">File Name:</string>
+  <string name="detail_text_file_id_label">File ID:</string>
+  <string name="detail_text_file_status_label">Download Status:</string>
+  <string name="detail_text_file_date_label">Download Date:</string>
+  <string name="detail_text_file_size_label">Size:</string>
+  <string name="detail_status_download_successful">Successful</string>
+  <string name="detail_status_download_failed">Failed</string>
   <!-- Main Screen -->
-  <string name="text_glide_by_bumptech">Glide - Image Loading Library by BumpTech.</string>
-  <string name="text_loadapp_by_udacity">LoadApp - Current repository by Udacity.</string>
-  <string name="text_retrofit_by_square">Retrofit - Type-safe HTTP client for Android and Java by Square, Inc.</string>
-  <string name="label_default_button_text">Download</string>
-  <string name="label_loading_button_text">Loading…</string>
-  <string name="toast_instruct_to_download">Please select the file to download.</string>
-
-  <!-- Downloads -->
-  <string name="status_download_successful">Successful</string>
-  <string name="status_download_failed">Failed</string>
+  <string name="main_text_glide_by_bumptech">Glide - Image Loading Library by BumpTech.</string>
+  <string name="main_text_loadapp_by_udacity">LoadApp - Current repository by Udacity.</string>
+  <string name="main_text_retrofit_by_square">Retrofit - Type-safe HTTP client for Android and Java by Square, Inc.</string>
+  <string name="main_label_default_button_text">Download</string>
+  <string name="main_label_loading_button_text">Loading…</string>
+  <string name="main_toast_instruct_to_download">Please select the file to download.</string>
 </resources>

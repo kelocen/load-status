@@ -35,14 +35,45 @@
     <item name="android:layout_width">match_parent</item>
     <item name="android:background">?attr/colorPrimary</item>
   </style>
+  <!-- File Label TextViews -->
+  <style name="ActivityDetail.TextView" parent="ApplicationStyle">
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_marginTop">@dimen/detail_textview_margin_top</item>
+  </style>
+  <!-- File Label Name TextView -->
+  <style name="ActivityDetail.TextView.FileNameLabel" parent="ActivityDetail.TextView">
+    <item name="android:text">@string/detail_text_file_name_label</item>
+    <item name="android:textStyle">bold</item>
+  </style>
+  <!-- File Label ID TextView -->
+  <style name="ActivityDetail.TextView.FileIdLabel" parent="ActivityDetail.TextView">
+    <item name="android:text">@string/detail_text_file_id_label</item>
+    <item name="android:textStyle">bold</item>
+  </style>
+  <!-- File Status Label TextView -->
+  <style name="ActivityDetail.TextView.DownloadStatusLabel" parent="ActivityDetail.TextView">
+    <item name="android:text">@string/detail_text_file_status_label</item>
+    <item name="android:textStyle">bold</item>
+  </style>
+  <!-- File Size Label TextView -->
+  <style name="ActivityDetail.TextView.FileSizeLabel" parent="ActivityDetail.TextView">
+    <item name="android:text">@string/detail_text_file_size_label</item>
+    <item name="android:textStyle">bold</item>
+  </style>
+  <!-- Download Date Label TextView -->
+  <style name="ActivityDetail.TextView.DownloadDateLabel" parent="ActivityDetail.TextView">
+    <item name="android:text">@string/detail_text_file_date_label</item>
+    <item name="android:textStyle">bold</item>
+  </style>
   <!-- Okay Button -->
   <style name="ActivityDetail.ButtonOkay" parent="ApplicationStyle">
-    <item name="android:layout_height">@dimen/button_ok_height</item>
+    <item name="android:layout_height">@dimen/detail_button_ok_height</item>
     <item name="android:layout_width">match_parent</item>
-    <item name="android:layout_margin">@dimen/button_ok_margin</item>
+    <item name="android:layout_margin">@dimen/detail_button_ok_margin</item>
     <item name="android:layout_gravity">bottom|center</item>
     <item name="android:textAllCaps">true</item>
-    <item name="android:text">@string/label_button_ok</item>
+    <item name="android:text">@string/detail_label_button_ok</item>
     <item name="android:textColor">@color/white</item>
     <item name="android:backgroundTint">@color/colorAccent</item>
   </style>
@@ -57,9 +88,9 @@
   </style>
   <!-- Loading Button -->
   <style name="ContentMain.LoadingButton" parent="ApplicationStyle">
-    <item name="android:layout_height">@dimen/button_loading_height</item>
-    <item name="android:layout_width">@dimen/button_loading_width</item>
-    <item name="android:layout_margin">@dimen/button_layout_margin</item>
+    <item name="android:layout_height">@dimen/main_button_loading_height</item>
+    <item name="android:layout_width">@dimen/main_button_loading_width</item>
+    <item name="android:layout_margin">@dimen/main_button_loading_layout_margin</item>
   </style>
   <!-- Radio List -->
   <style name="ContentMain.RadioList" parent="Theme.LoadStatus">
@@ -71,7 +102,7 @@
   <style name="ContentMain.RadioButtons" parent="Theme.LoadStatus">
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
-    <item name="android:layout_marginBottom">@dimen/radio_button_margin_bottom</item>
+    <item name="android:layout_marginBottom">@dimen/main_radio_button_margin_bottom</item>
   </style>
   <!-- - - - - - = = = = = = = = = = = = Detail Content Layout = = = = = = = = = = = = - - - - - -->
   <!-- Constraint Layout -->

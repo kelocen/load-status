@@ -89,7 +89,9 @@ class MainActivity : AppCompatActivity() {
      * Displays a [Toast] that instructs the user to select an item to download.
      */
     private fun displayInstructionToast() {
-        Toast.makeText(this, getString(R.string.toast_instruct_to_download), Toast.LENGTH_SHORT)
+        Toast.makeText(this,
+                       getString(R.string.main_toast_instruct_to_download),
+                       Toast.LENGTH_SHORT)
                 .show()
     }
 

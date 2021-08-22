@@ -1,9 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   style="@style/ContentDetail.ConstraintLayout"
   app:layout_behavior="@string/appbar_scrolling_view_behavior"
   tools:context="dev.kelocen.loadstatus.detail.DetailActivity"
   tools:showIn="@layout/activity_detail">
+
+  <!-- File Name Label -->
+  <TextView
+    android:id="@+id/text_file_name_label"
+    style="@style/ActivityDetail.TextView.FileNameLabel"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/text_download_date_label" />
+
+  <!-- File Name -->
+  <TextView
+    android:id="@+id/text_file_name"
+    style="@style/ActivityDetail.TextView"
+    app:layout_constraintStart_toStartOf="@+id/guideline2"
+    app:layout_constraintTop_toBottomOf="@+id/text_download_date"
+    tools:text="file.zip" />
+
+  <!-- File ID Label -->
+  <TextView
+    android:id="@+id/text_file_id_label"
+    style="@style/ActivityDetail.TextView.FileIdLabel"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/text_file_name_label" />
+
+  <!-- File ID -->
+  <TextView
+    android:id="@+id/text_file_id"
+    style="@style/ActivityDetail.TextView"
+    app:layout_constraintStart_toStartOf="@+id/guideline2"
+    app:layout_constraintTop_toBottomOf="@+id/text_file_name"
+    tools:text="1289" />
+
+  <!-- Download Status Label -->
+  <TextView
+    android:id="@+id/text_download_status_label"
+    style="@style/ActivityDetail.TextView.DownloadStatusLabel"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <!-- Download Status -->
+  <TextView
+    android:id="@+id/text_download_status"
+    style="@style/ActivityDetail.TextView"
+    app:layout_constraintStart_toStartOf="@+id/guideline2"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:text="Success" />
+
+  <!-- File Size Label -->
+  <TextView
+    android:id="@+id/text_file_size_label"
+    style="@style/ActivityDetail.TextView.FileSizeLabel"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/text_file_id_label" />
+
+  <!-- File Size -->
+  <TextView
+    android:id="@+id/text_file_size"
+    style="@style/ActivityDetail.TextView"
+    app:layout_constraintStart_toStartOf="@+id/guideline2"
+    app:layout_constraintTop_toBottomOf="@+id/text_file_id"
+    tools:text="150kb" />
+
+  <!-- Download Date Label -->
+  <TextView
+    android:id="@+id/text_download_date_label"
+    style="@style/ActivityDetail.TextView.DownloadDateLabel"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/text_download_status_label" />
+
+  <!-- Download Date -->
+  <TextView
+    android:id="@+id/text_download_date"
+    style="@style/ActivityDetail.TextView"
+    app:layout_constraintStart_toStartOf="@+id/guideline2"
+    app:layout_constraintTop_toBottomOf="@+id/text_download_status"
+    tools:text="08/21/2021" />
+
+  <!-- Details Guideline -->
+  <androidx.constraintlayout.widget.Guideline
+    android:id="@+id/guideline2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintGuide_begin="193dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

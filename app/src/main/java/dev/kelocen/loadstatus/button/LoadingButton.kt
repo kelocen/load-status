@@ -75,8 +75,8 @@ class LoadingButton @JvmOverloads constructor(
             loadingPaintColor = getColor(R.styleable.LoadingButton_paintLoadingButton, 0)
             loadingCircleColor = getColor(R.styleable.LoadingButton_paintLoadingCircle, 0)
         }
-        defaultButtonText = resources.getString(R.string.label_default_button_text)
-        loadingButtonText = resources.getString(R.string.label_loading_button_text)
+        defaultButtonText = resources.getString(R.string.main_label_default_button_text)
+        loadingButtonText = resources.getString(R.string.main_label_loading_button_text)
         textPaint.color = textPaintColor
     }
 

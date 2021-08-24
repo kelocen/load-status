@@ -41,29 +41,29 @@
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_marginTop">@dimen/detail_textview_margin_top</item>
   </style>
-  <!-- File Label Name TextView -->
-  <style name="ActivityDetail.TextView.FileNameLabel" parent="ActivityDetail.TextView">
-    <item name="android:text">@string/detail_text_file_name_label</item>
+  <!-- Download Label Name TextView -->
+  <style name="ActivityDetail.TextView.DownloadNameLabel" parent="ActivityDetail.TextView">
+    <item name="android:text">@string/detail_text_download_name_label</item>
     <item name="android:textStyle">bold</item>
   </style>
-  <!-- File Label ID TextView -->
-  <style name="ActivityDetail.TextView.FileIdLabel" parent="ActivityDetail.TextView">
-    <item name="android:text">@string/detail_text_file_id_label</item>
-    <item name="android:textStyle">bold</item>
-  </style>
-  <!-- File Status Label TextView -->
+  <!-- Download Status Label TextView -->
   <style name="ActivityDetail.TextView.DownloadStatusLabel" parent="ActivityDetail.TextView">
-    <item name="android:text">@string/detail_text_file_status_label</item>
+    <item name="android:text">@string/detail_text_download_status_label</item>
     <item name="android:textStyle">bold</item>
   </style>
-  <!-- File Size Label TextView -->
-  <style name="ActivityDetail.TextView.FileSizeLabel" parent="ActivityDetail.TextView">
-    <item name="android:text">@string/detail_text_file_size_label</item>
+  <!-- Download Size Label TextView -->
+  <style name="ActivityDetail.TextView.DownloadSizeLabel" parent="ActivityDetail.TextView">
+    <item name="android:text">@string/detail_text_download_size_label</item>
     <item name="android:textStyle">bold</item>
   </style>
   <!-- Download Date Label TextView -->
   <style name="ActivityDetail.TextView.DownloadDateLabel" parent="ActivityDetail.TextView">
-    <item name="android:text">@string/detail_text_file_date_label</item>
+    <item name="android:text">@string/detail_text_download_date_label</item>
+    <item name="android:textStyle">bold</item>
+  </style>
+  <!-- Download Date Label TextView -->
+  <style name="ActivityDetail.TextView.DownloadUrlLabel" parent="ActivityDetail.TextView">
+    <item name="android:text">@string/detail_text_download_url_label</item>
     <item name="android:textStyle">bold</item>
   </style>
   <!-- Okay Button -->

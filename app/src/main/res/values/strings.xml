@@ -9,14 +9,15 @@
   <string name="notification_description">Download %s.</string>
   <string name="notification_button">See Details</string>
   <!-- Detail Screen -->
-  <string name="detail_activity_subtitle">File Details</string>
+  <string name="detail_activity_subtitle">Download Details</string>
   <string name="detail_label_button_ok">OK</string>
-  <string name="detail_text_file_name_label">File Name:</string>
-  <string name="detail_text_file_id_label">File ID:</string>
-  <string name="detail_text_file_status_label">Download Status:</string>
-  <string name="detail_text_file_date_label">Download Date:</string>
-  <string name="detail_text_file_size_label">Size:</string>
-  <string name="detail_text_file_size">%sKB</string>
+  <string name="detail_text_download_name_label">Download Name:</string>
+  <string name="detail_text_download_status_label">Download Status:</string>
+  <string name="detail_text_download_date_label">Download Date:</string>
+  <string name="detail_text_download_size_label">Download Size:</string>
+  <string name="detail_text_download_url_label">Download URL:</string>
+
+  <string name="detail_text_download_size">%sKB</string>
   <string name="detail_status_download_successful">Successful</string>
   <string name="detail_status_download_failed">Failed</string>
   <string name="detail_status_download_unknown_error">Error</string>

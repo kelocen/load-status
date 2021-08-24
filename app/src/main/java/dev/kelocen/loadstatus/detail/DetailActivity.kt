@@ -47,10 +47,11 @@ class DetailActivity : AppCompatActivity() {
         }
         content.textDownloadStatus.text = download?.status
         content.textDownloadDate.text = download?.date
-        content.textFileSize.text = String.format(getString(R.string.detail_text_file_size),
-                                                  download?.sizeKb)
-        content.textFileName.text = download?.name
-        content.textFileId.text = download?.downloadId.toString()
+        content.textDownloadSize.text = String.format(getString(R.string.detail_text_download_size),
+                                                      download?.sizeKb)
+        content.textDownloadName.text = download?.name
+        content.textDownloadUrl.text = download?.url
+
     }
 
     /**

@@ -9,17 +9,13 @@ import dev.kelocen.loadstatus.receiver.DownloadReceiver
  */
 class ReceiverDownload(
         var name: String? = "name",
-        private var url: String? = "url",
-        var downloadId: Long = 0,
-        private var channelID: String? = "channelId",
+        var url: String? = "url",
         var sizeKb: Double = 0.0,
         var status: String? = "status",
         var date: String? = "0/00/0000",
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
-            parcel.readString(),
-            parcel.readLong(),
             parcel.readString(),
             parcel.readDouble(),
             parcel.readString(),
@@ -28,8 +24,6 @@ class ReceiverDownload(
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(name)
         parcel.writeString(url)
-        parcel.writeLong(downloadId)
-        parcel.writeString(channelID)
         parcel.writeDouble(sizeKb)
         parcel.writeString(status)
         parcel.writeString(date)

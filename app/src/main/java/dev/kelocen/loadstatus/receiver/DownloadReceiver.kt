@@ -31,13 +31,12 @@ class DownloadReceiver(private var downloadManager: DownloadManager) : Broadcast
         if (downloadId == id) {
             val date = getDateToday()
             val sizeKb = (getTotalDownloadSize() / 1024).toDouble()
-            val channelID = context.getString(R.string.notification_channel_id)
             val status = when (getDownloadStatus()) {
                 DownloadManager.STATUS_SUCCESSFUL -> context.getString(R.string.detail_status_download_successful)
                 DownloadManager.STATUS_FAILED -> context.getString(R.string.detail_status_download_failed)
                 else -> context.getString(R.string.detail_status_download_unknown_error)
             }
-            download = ReceiverDownload(name, url, downloadId, channelID, sizeKb, status, date)
+            download = ReceiverDownload(name, url, sizeKb, status, date)
             notificationManager?.sendNotification(String.format(context.getString(R.string.notification_description),
                                                                 download.status), context, download)
         }

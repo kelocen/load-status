@@ -7,21 +7,34 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import dev.kelocen.loadstatus.R
 import dev.kelocen.loadstatus.detail.DetailActivity
+import dev.kelocen.loadstatus.download.ReceiverDownload
+import dev.kelocen.loadstatus.util.Constants.DOWNLOAD
+import dev.kelocen.loadstatus.util.Constants.DOWNLOAD_BUNDLE
 import dev.kelocen.loadstatus.util.Constants.NOTIFICATION_ID
 
 /**
  * Sends a notification with the given message and [Context].
  */
-fun NotificationManager.sendNotification(message: String, applicationContext: Context) {
+fun NotificationManager.sendNotification(
+        message: String,
+        applicationContext: Context,
+        download: ReceiverDownload,
+) {
     val detailIntent = Intent(applicationContext, DetailActivity::class.java)
+    val downloadBundle = Bundle()
+    downloadBundle.putParcelable(DOWNLOAD, download)
+    detailIntent.putExtra(DOWNLOAD_BUNDLE, downloadBundle)
+
     val pendingIntent = PendingIntent.getActivity(applicationContext,
                                                   NOTIFICATION_ID,
                                                   detailIntent,
-                                                  PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+                                                  PendingIntent.FLAG_UPDATE_CURRENT
+                                                          or PendingIntent.FLAG_IMMUTABLE)
     val notificationAction = NotificationCompat.Action(null,
                                                        applicationContext.getString(R.string.notification_button),
                                                        pendingIntent)
@@ -39,8 +52,7 @@ private fun getNotification(
         pendingIntent: PendingIntent,
 ): Notification {
     return NotificationCompat.Builder(applicationContext,
-                                      applicationContext.getString(
-                                              R.string.notification_channel_id))
+                                      applicationContext.getString(R.string.notification_channel_id))
             .setSmallIcon(R.drawable.ic_download_assistant)
             .setContentTitle(applicationContext.getString(R.string.notification_title))
             .setContentText(message)

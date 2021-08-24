@@ -1,11 +1,17 @@
 package dev.kelocen.loadstatus.detail
 
 import android.app.NotificationManager
+import android.graphics.Color
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import dev.kelocen.loadstatus.R
 import dev.kelocen.loadstatus.databinding.ActivityDetailBinding
 import dev.kelocen.loadstatus.databinding.ContentDetailBinding
+import dev.kelocen.loadstatus.download.ReceiverDownload
+import dev.kelocen.loadstatus.util.Constants.DOWNLOAD
+import dev.kelocen.loadstatus.util.Constants.DOWNLOAD_BUNDLE
 import dev.kelocen.loadstatus.util.cancelNotifications
 
 /**
@@ -23,7 +29,28 @@ class DetailActivity : AppCompatActivity() {
         setContentView(detail.root)
         setSupportActionBar(detail.toolbar)
         cancelNotifications()
-        setupOkayButton()
+        setupOkButton()
+        populateTextFields()
+    }
+
+    /**
+     * Assigns each [ReceiverDownload] property a corresponding [TextView].
+     */
+    private fun populateTextFields() {
+        val bundle = intent?.getBundleExtra(DOWNLOAD_BUNDLE)
+        val download = bundle?.getParcelable<ReceiverDownload>(DOWNLOAD)
+        if (download?.status.equals(getString(R.string.detail_status_download_failed)) ||
+            download?.status.equals(getString(R.string.detail_status_download_unknown_error))) {
+            content.textDownloadStatus.setTextColor(Color.RED)
+        } else {
+            content.textDownloadStatus.setTextColor(Color.GREEN)
+        }
+        content.textDownloadStatus.text = download?.status
+        content.textDownloadDate.text = download?.date
+        content.textFileSize.text = String.format(getString(R.string.detail_text_file_size),
+                                                  download?.sizeKb)
+        content.textFileName.text = download?.name
+        content.textFileId.text = download?.downloadId.toString()
     }
 
     /**
@@ -31,14 +58,14 @@ class DetailActivity : AppCompatActivity() {
      */
     private fun cancelNotifications() {
         val notificationManager =
-            ContextCompat.getSystemService(this, NotificationManager::class.java)
+                ContextCompat.getSystemService(this, NotificationManager::class.java)
         notificationManager?.cancelNotifications()
     }
 
     /**
      * Configures the OK button for the detail screen.
      */
-    private fun setupOkayButton() {
+    private fun setupOkButton() {
         detail.buttonOk.setOnClickListener {
             onBackPressed()
         }

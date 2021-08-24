@@ -6,9 +6,8 @@
   <string name="notification_channel_name">Download</string>
   <string name="notification_channel_id">download_channel</string>
   <string name="notification_title">Load Status: Downloads &amp; Notifications</string>
-  <string name="notification_description">Your download has completed.</string>
-  <string name="notification_error">An error has occurred.</string>
-  <string name="notification_button">Check Status</string>
+  <string name="notification_description">Download %s.</string>
+  <string name="notification_button">See Details</string>
   <!-- Detail Screen -->
   <string name="detail_activity_subtitle">File Details</string>
   <string name="detail_label_button_ok">OK</string>
@@ -17,8 +16,10 @@
   <string name="detail_text_file_status_label">Download Status:</string>
   <string name="detail_text_file_date_label">Download Date:</string>
   <string name="detail_text_file_size_label">Size:</string>
+  <string name="detail_text_file_size">%sKB</string>
   <string name="detail_status_download_successful">Successful</string>
   <string name="detail_status_download_failed">Failed</string>
+  <string name="detail_status_download_unknown_error">Error</string>
   <!-- Main Screen -->
   <string name="main_text_glide_by_bumptech">Glide - Image Loading Library by BumpTech.</string>
   <string name="main_text_loadapp_by_udacity">LoadApp - Current repository by Udacity.</string>

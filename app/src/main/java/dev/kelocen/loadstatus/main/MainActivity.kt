@@ -14,13 +14,16 @@ import dev.kelocen.loadstatus.button.ButtonState
 import dev.kelocen.loadstatus.button.LoadingButton
 import dev.kelocen.loadstatus.databinding.ActivityMainBinding
 import dev.kelocen.loadstatus.databinding.ContentMainBinding
-import dev.kelocen.loadstatus.download.Download
+import dev.kelocen.loadstatus.download.ReceiverDownload
+import dev.kelocen.loadstatus.receiver.DownloadReceiver
+import dev.kelocen.loadstatus.util.Constants.FILE_NAME_GLIDE
+import dev.kelocen.loadstatus.util.Constants.FILE_NAME_LOAD_APP
+import dev.kelocen.loadstatus.util.Constants.FILE_NAME_RETROFIT
 import dev.kelocen.loadstatus.util.Constants.URL_BUMPTECH_GLIDE
 import dev.kelocen.loadstatus.util.Constants.URL_LOAD_APP
 import dev.kelocen.loadstatus.util.Constants.URL_RETROFIT
+import dev.kelocen.loadstatus.util.LoadUtility
 import dev.kelocen.loadstatus.util.createChannel
-import dev.kelocen.loadstatus.util.downloadReceiver
-import dev.kelocen.loadstatus.util.getDownload
 
 /**
  * The main activity for the Load Status application.
@@ -29,8 +32,11 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var activity: ActivityMainBinding
     private lateinit var content: ContentMainBinding
-    private var download = Download()
+    private lateinit var loadUtil: LoadUtility
+    private lateinit var downloadReceiver: DownloadReceiver
+    private var name: String? = null
     private var url: String? = null
+    private var downloadId: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +44,8 @@ class MainActivity : AppCompatActivity() {
         content = activity.contentMain
         setContentView(activity.root)
         setSupportActionBar(activity.toolbar)
+        loadUtil = LoadUtility(this)
+        downloadReceiver = DownloadReceiver(loadUtil.downloadManager)
         registerReceiver(downloadReceiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
         setupNotificationChannel()
         setupOnCheckedListener()
@@ -60,17 +68,26 @@ class MainActivity : AppCompatActivity() {
      */
     private fun setupOnCheckedListener() {
         content.radioGroupItemList.setOnCheckedChangeListener { _, checkedId ->
-            url = when (checkedId) {
-                content.radioButtonGlide.id -> URL_BUMPTECH_GLIDE
-                content.radioButtonLoadApp.id -> URL_LOAD_APP
-                content.radioButtonRetrofit.id -> URL_RETROFIT
-                else -> null
+            when (checkedId) {
+                content.radioButtonGlide.id -> {
+                    url = URL_BUMPTECH_GLIDE
+                    name = FILE_NAME_GLIDE
+                }
+                content.radioButtonLoadApp.id -> {
+                    url = URL_LOAD_APP
+                    name = FILE_NAME_LOAD_APP
+                }
+                content.radioButtonRetrofit.id -> {
+                    url = URL_RETROFIT
+                    name = FILE_NAME_RETROFIT
+                }
             }
         }
     }
 
     /**
-     * Configures the [OnClickListener] for the [LoadingButton].
+     * Configures the [OnClickListener] for the [LoadingButton] and updates available properties
+     * for the [ReceiverDownload] object.
      */
     private fun setupDownloadButton() {
         content.customButtonDownload.setOnClickListener {
@@ -78,9 +95,11 @@ class MainActivity : AppCompatActivity() {
                 displayInstructionToast()
             } else {
                 content.customButtonDownload.buttonState = ButtonState.Clicked
-                download.url = url
-                download.downloadId = getDownload(this, url)
-                download.channelID = getString(R.string.notification_channel_id)
+                downloadId = loadUtil.getDownload(this, url)
+                // Pass properties to receiver
+                downloadReceiver.name = name
+                downloadReceiver.url = url
+                downloadReceiver.downloadId = downloadId
             }
         }
     }

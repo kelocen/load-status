@@ -128,13 +128,10 @@ class LoadingButton @JvmOverloads constructor(
      */
     private fun updateAnimationWidth() {
         ValueAnimator.ofFloat(0f, widthSize).apply {
-            duration = 1750
+            duration = 1600
             interpolator = LinearInterpolator()
             addUpdateListener {
                 animationButtonWidth = it.animatedValue as Float
-                if (animationButtonWidth == widthSize) {
-                    buttonState = ButtonState.Completed
-                }
                 invalidate()
             }
         }.start()

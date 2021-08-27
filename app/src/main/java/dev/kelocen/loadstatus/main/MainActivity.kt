@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var activity: ActivityMainBinding
     private lateinit var content: ContentMainBinding
-    private lateinit var loadUtil: LoadUtility
     private lateinit var downloadReceiver: DownloadReceiver
     private var name: String? = null
     private var url: String? = null
@@ -44,8 +43,7 @@ class MainActivity : AppCompatActivity() {
         content = activity.contentMain
         setContentView(activity.root)
         setSupportActionBar(activity.toolbar)
-        loadUtil = LoadUtility(this)
-        downloadReceiver = DownloadReceiver(loadUtil.downloadManager)
+        downloadReceiver = DownloadReceiver(LoadUtility.getDownloadManager(this))
         registerReceiver(downloadReceiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
         setupNotificationChannel()
         setupOnCheckedListener()
@@ -94,9 +92,11 @@ class MainActivity : AppCompatActivity() {
             if (content.radioGroupItemList.checkedRadioButtonId == -1 || url.isNullOrEmpty()) {
                 displayInstructionToast()
             } else {
-                content.customButtonDownload.buttonState = ButtonState.Clicked
-                downloadId = loadUtil.getDownload(this, url)
-                // Pass properties to receiver
+                if (content.customButtonDownload.buttonState == ButtonState.Reset) {
+                    content.customButtonDownload.buttonState = ButtonState.Clicked
+                }
+                downloadId = LoadUtility.getDownload(this, url)
+                // Pass properties to DownloadReceiver
                 downloadReceiver.name = name
                 downloadReceiver.url = url
                 downloadReceiver.downloadId = downloadId

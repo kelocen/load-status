@@ -7,7 +7,7 @@ import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
-import android.view.animation.LinearInterpolator
+import android.view.animation.AccelerateInterpolator
 import androidx.core.content.withStyledAttributes
 import dev.kelocen.loadstatus.R
 import kotlin.properties.Delegates
@@ -25,24 +25,29 @@ class LoadingButton @JvmOverloads constructor(
     private var heightSize = 0f
     private var animationButtonWidth = 0f
     private var animationCircleAngle = 0f
-    private var defaultPaintColor = 0
-    private var loadingPaintColor = 0
-    private var textPaintColor = 0
-    private var loadingCircleColor = 0
-    private var defaultButtonText: String
-    private var loadingButtonText: String
+    private var defaultButtonText: String? = null
+    private var loadingButtonText: String? = null
+    private val pass: Unit = Unit // Placeholder for empty blocks
 
     /**
-     * A [Paint] object for the button style.
+     * A [Paint] object for the default button style.
      */
-    private var customButtonPaint = Paint()
+    private var defaultButtonPaint = Paint().apply {
+        isAntiAlias = true
+    }
+
+    /**
+     * A [Paint] object for the loading button style.
+     */
+    private var loadingButtonPaint = Paint().apply {
+        isAntiAlias = true
+    }
 
     /**
      * A [Paint] object for the text style.
      */
     private var textPaint = Paint().apply {
         isAntiAlias = true
-        isDither = true
         textSize = 60f
         textAlign = Paint.Align.CENTER
     }
@@ -50,55 +55,132 @@ class LoadingButton @JvmOverloads constructor(
     /**
      * A [Paint] object for the loading circle style.
      */
-    private var customCirclePaint = Paint().apply {
+    private var loadingCirclePaint = Paint().apply {
         isAntiAlias = true
         isDither = true
     }
 
     /**
-     * A [ButtonState] object by [Delegates] to observe the button state.
+     * A [ValueAnimator] to animate the [LoadingButton] by updating the [animationButtonWidth].
      */
-    var buttonState: ButtonState by Delegates.observable(
-            ButtonState.Completed) { _, _, newButtonState ->
-        if (newButtonState == ButtonState.Clicked) {
-            buttonState = ButtonState.Loading
-        } else if (newButtonState == ButtonState.Loading) {
-            updateAnimationWidth()
-            updateAnimationAngle()
+    private var buttonAnimator = ValueAnimator.ofFloat().apply {
+        duration = 700
+        interpolator = AccelerateInterpolator()
+        addUpdateListener {
+            animationButtonWidth = it.animatedValue as Float
+            invalidate()
+        }
+    }
+
+    /**
+     * A [ValueAnimator] to animate the loading circle by updating the [animationCircleAngle].
+     */
+    private var circleAnimator = ValueAnimator.ofFloat().apply {
+        duration = 1200
+        interpolator = AccelerateInterpolator()
+        repeatMode = ValueAnimator.RESTART
+        repeatCount = 3
+        addUpdateListener {
+            animationCircleAngle = it.animatedValue as Float
+            invalidate()
+        }
+    }
+
+    /**
+     * A [ButtonState] object by [Delegates] to observe the button state and update the animation.
+     */
+    var buttonState: ButtonState by Delegates.observable(ButtonState.Reset) { _, _, newButtonState ->
+        when (newButtonState) {
+            ButtonState.Clicked -> {
+                buttonAnimator.setFloatValues(0f, widthSize)
+                circleAnimator.setFloatValues(0f, 360f)
+                invalidate()
+            }
+            ButtonState.Loading -> {
+                if (!circleAnimator.isRunning) {
+                    buttonAnimator.start()
+                    circleAnimator.start()
+                }
+            }
+            ButtonState.Completed -> {
+                if (circleAnimator.isRunning) {
+                    circleAnimator.end()
+                    buttonAnimator.end()
+                }
+                invalidate()
+            }
+            ButtonState.Reset -> {
+                invalidate()
+            }
         }
     }
 
     init {
         context.withStyledAttributes(attrs, R.styleable.LoadingButton) {
-            textPaintColor = getColor(R.styleable.LoadingButton_paintDefaultText, 0)
-            defaultPaintColor = getColor(R.styleable.LoadingButton_paintDefaultButton, 0)
-            loadingPaintColor = getColor(R.styleable.LoadingButton_paintLoadingButton, 0)
-            loadingCircleColor = getColor(R.styleable.LoadingButton_paintLoadingCircle, 0)
+            defaultButtonPaint.color = getColor(R.styleable.LoadingButton_buttonDefaultPaint, 0)
+            loadingCirclePaint.color = getColor(R.styleable.LoadingButton_buttonCirclePaint, 0)
+            loadingButtonPaint.color = getColor(R.styleable.LoadingButton_buttonLoadingPaint, 0)
+            textPaint.color = getColor(R.styleable.LoadingButton_buttonTextPaint, 0)
+            defaultButtonText = getString(R.styleable.LoadingButton_buttonDefaultText)
+            loadingButtonText = getString(R.styleable.LoadingButton_buttonLoadingText)
         }
-        defaultButtonText = resources.getString(R.string.main_label_default_button_text)
-        loadingButtonText = resources.getString(R.string.main_label_loading_button_text)
-        textPaint.color = textPaintColor
     }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
+        updateButtonState()
         drawLoadingButton(canvas)
-        drawLoadingCircle(canvas)
     }
 
     /**
-     * Draws the [LoadingButton] using the given [Canvas] and [buttonState].
+     * Updates the button state based on the state of [circleAnimator].
+     */
+    private fun updateButtonState() {
+        if (!circleAnimator.isRunning) {
+            when (buttonState) {
+                ButtonState.Clicked -> {
+                    buttonState = ButtonState.Loading
+                }
+                ButtonState.Loading -> {
+                    buttonState = ButtonState.Completed
+                }
+                ButtonState.Completed -> {
+                    buttonState = ButtonState.Reset
+                }
+                ButtonState.Reset -> {
+                    pass
+                }
+            }
+        }
+    }
+
+    /**
+     * Draws the [LoadingButton] using the [buttonState] and given [Canvas].
      */
     private fun drawLoadingButton(canvas: Canvas?) {
-        customButtonPaint.color = defaultPaintColor
-        canvas?.drawRect(drawButtonRectF(), customButtonPaint)
-        if (buttonState == ButtonState.Completed) {
-            drawButtonText(canvas, defaultButtonText)
+        if (buttonState == ButtonState.Reset) {
+            drawDefaultLoadingButton(canvas)
         } else if (buttonState == ButtonState.Loading) {
-            customButtonPaint.color = loadingPaintColor
-            canvas?.drawRect(drawButtonRectF(right = animationButtonWidth), customButtonPaint)
-            drawButtonText(canvas, loadingButtonText)
+            drawInProgressLoadingButton(canvas)
         }
+    }
+
+    /**
+     * Draws the default loading button using the given [Canvas].
+     */
+    private fun drawDefaultLoadingButton(canvas: Canvas?) {
+        canvas?.drawRect(drawButtonRectF(), defaultButtonPaint)
+        drawButtonText(canvas, defaultButtonText)
+    }
+
+    /**
+     * Draws the animated loading button using the given [Canvas].
+     */
+    private fun drawInProgressLoadingButton(canvas: Canvas?) {
+        canvas?.drawRect(drawButtonRectF(), defaultButtonPaint)
+        canvas?.drawRect(drawButtonRectF(right = animationButtonWidth), loadingButtonPaint)
+        drawButtonText(canvas, loadingButtonText)
+        drawLoadingCircle(canvas)
     }
 
     /**
@@ -116,35 +198,22 @@ class LoadingButton @JvmOverloads constructor(
     /**
      * Draws the text for the [LoadingButton] with the given [Canvas].
      */
-    private fun drawButtonText(canvas: Canvas?, buttonText: String) {
-        canvas?.drawText(buttonText,
+    private fun drawButtonText(canvas: Canvas?, buttonText: String?) {
+        canvas?.drawText(buttonText.toString(),
                          (widthSize / 2),
                          (heightSize / 2) - ((textPaint.ascent() + textPaint.descent()) / 2),
                          textPaint)
     }
 
     /**
-     * Uses a [ValueAnimator] to animate the [LoadingButton] by updating the [animationButtonWidth].
-     */
-    private fun updateAnimationWidth() {
-        ValueAnimator.ofFloat(0f, widthSize).apply {
-            duration = 1600
-            interpolator = LinearInterpolator()
-            addUpdateListener {
-                animationButtonWidth = it.animatedValue as Float
-                invalidate()
-            }
-        }.start()
-    }
-
-    /**
      * Draws the loading circle for the [LoadingButton] with the given [Canvas].
      */
     private fun drawLoadingCircle(canvas: Canvas?) {
-        if (buttonState == ButtonState.Loading) {
-            customCirclePaint.color = loadingCircleColor
-            canvas?.drawArc(drawCircleRectF(), 0f, animationCircleAngle, true, customCirclePaint)
-        }
+        canvas?.drawArc(drawCircleRectF(),
+                        0f,
+                        animationCircleAngle,
+                        true,
+                        loadingCirclePaint)
     }
 
     /**
@@ -157,23 +226,6 @@ class LoadingButton @JvmOverloads constructor(
             bottom: Float = heightSize / 2 + textPaint.descent() - ((textPaint.ascent() + textPaint.descent()) / 2),
     ): RectF {
         return RectF(left, top, right, bottom)
-    }
-
-    /**
-     * Uses a [ValueAnimator] to animate the loading circle by updating the [animationCircleAngle].
-     */
-    private fun updateAnimationAngle() {
-        ValueAnimator.ofFloat(0f, 360f).apply {
-            duration = 1700
-            interpolator = LinearInterpolator()
-            addUpdateListener {
-                animationCircleAngle = it.animatedValue as Float
-                if (animationCircleAngle >= 360f) {
-                    buttonState = ButtonState.Completed
-                }
-                invalidate()
-            }
-        }.start()
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

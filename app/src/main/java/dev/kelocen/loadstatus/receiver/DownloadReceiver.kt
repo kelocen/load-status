@@ -19,7 +19,7 @@ class DownloadReceiver(private var downloadManager: DownloadManager) : Broadcast
 
     private lateinit var download: ReceiverDownload
 
-    // Properties updated by main activity
+    // Properties updated by MainActivity
     var name: String? = null
     var url: String? = null
     var downloadId: Long = 0
@@ -32,9 +32,15 @@ class DownloadReceiver(private var downloadManager: DownloadManager) : Broadcast
             val date = getDateToday()
             val sizeKb = (getTotalDownloadSize() / 1024).toDouble()
             val status = when (getDownloadStatus()) {
-                DownloadManager.STATUS_SUCCESSFUL -> context.getString(R.string.detail_status_download_successful)
-                DownloadManager.STATUS_FAILED -> context.getString(R.string.detail_status_download_failed)
-                else -> context.getString(R.string.detail_status_download_unknown_error)
+                DownloadManager.STATUS_SUCCESSFUL -> {
+                    context.getString(R.string.detail_status_download_successful)
+                }
+                DownloadManager.STATUS_FAILED -> {
+                    context.getString(R.string.detail_status_download_failed)
+                }
+                else -> {
+                    context.getString(R.string.detail_status_download_unknown_error)
+                }
             }
             download = ReceiverDownload(name, url, sizeKb, status, date)
             notificationManager?.sendNotification(String.format(context.getString(R.string.notification_description),
@@ -48,8 +54,8 @@ class DownloadReceiver(private var downloadManager: DownloadManager) : Broadcast
     private fun getDownloadStatus(): Int {
         val queryIdCursor =
                 downloadManager.query(DownloadManager.Query().setFilterById(downloadId))
-        val columnIndex = queryIdCursor.getColumnIndex(DownloadManager.COLUMN_STATUS)
         return if (queryIdCursor.moveToFirst()) {
+            val columnIndex = queryIdCursor.getColumnIndex(DownloadManager.COLUMN_STATUS)
             queryIdCursor.getInt(columnIndex)
         } else 0
     }
@@ -60,8 +66,8 @@ class DownloadReceiver(private var downloadManager: DownloadManager) : Broadcast
     private fun getTotalDownloadSize(): Int {
         val queryIdCursor =
                 downloadManager.query(DownloadManager.Query().setFilterById(downloadId))
-        val columnIndex = queryIdCursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES)
         return if (queryIdCursor.moveToFirst()) {
+            val columnIndex = queryIdCursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES)
             queryIdCursor.getInt(columnIndex)
         } else 0
     }

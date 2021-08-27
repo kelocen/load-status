@@ -8,18 +8,23 @@ import dev.kelocen.loadstatus.R
 
 
 /**
- * A utility class for downloads.
+ * A utility object for downloads.
  */
-class LoadUtility(context: Context) {
-
-    var downloadManager =
-            context.getSystemService(AppCompatActivity.DOWNLOAD_SERVICE) as DownloadManager
+object LoadUtility {
 
     /**
      * Enqueues a new download with [DownloadManager] and returns the download ID.
      */
     fun getDownload(context: Context, downloadUrl: String?): Long {
+        val downloadManager = getDownloadManager(context)
         return downloadManager.enqueue(getRequest(context, downloadUrl))
+    }
+
+    /**
+     * Returns a [DownloadManager] with teh given [Context].
+     */
+    fun getDownloadManager(context: Context): DownloadManager {
+        return context.getSystemService(AppCompatActivity.DOWNLOAD_SERVICE) as DownloadManager
     }
 
     /**

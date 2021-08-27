@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <declare-styleable name="LoadingButton">
-    <attr format="color" name="paintDefaultButton" />
-    <attr format="color" name="paintLoadingButton" />
-    <attr format="color" name="paintDefaultText" />
-    <attr format="color" name="paintLoadingCircle" />
+    <!-- Button Colors -->
+    <attr format="color" name="buttonDefaultPaint" />
+    <attr format="color" name="buttonLoadingPaint" />
+    <attr format="color" name="buttonTextPaint" />
+    <attr format="color" name="buttonCirclePaint" />
+    <!-- Button Text -->
+    <attr format="string" name="buttonDefaultText" />
+    <attr format="string" name="buttonLoadingText" />
   </declare-styleable>
 </resources>

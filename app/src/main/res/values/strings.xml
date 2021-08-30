@@ -28,4 +28,5 @@
   <string name="main_label_default_button_text">Download</string>
   <string name="main_label_loading_button_text">Loading…</string>
   <string name="main_toast_instruct_to_download">Please select the file to download.</string>
+  <string name="main_load_status_logo_description">A cloud with a bidirectional arrow pointing up and down.</string>
 </resources>

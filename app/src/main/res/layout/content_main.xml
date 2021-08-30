@@ -12,7 +12,7 @@
   <RadioGroup
     android:id="@+id/radio_group_item_list"
     style="@style/ContentMain.RadioList"
-    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintBottom_toTopOf="@id/custom_button_download"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
@@ -41,15 +41,15 @@
   <dev.kelocen.loadstatus.button.LoadingButton
     android:id="@+id/custom_button_download"
     style="@style/ContentMain.LoadingButton"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/radio_group_item_list"
     app:buttonCirclePaint="@color/colorAccent"
     app:buttonDefaultPaint="@color/colorPrimary"
     app:buttonDefaultText="@string/main_label_default_button_text"
     app:buttonLoadingPaint="@color/colorPrimaryDark"
     app:buttonLoadingText="@string/main_label_loading_button_text"
-    app:buttonTextPaint="@color/white" />
+    app:buttonTextPaint="@color/white"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/radio_group_item_list" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,7 @@
   <style name="ActivityMain.CoordinatorLayout" parent="ApplicationStyle">
     <item name="android:layout_height">match_parent</item>
     <item name="android:layout_width">match_parent</item>
+    <item name="android:fitsSystemWindows">true</item>
   </style>
   <!-- App Bar -->
   <style name="ActivityMain.AppBar" parent="ApplicationStyle">
@@ -17,6 +18,12 @@
     <item name="android:layout_height">?attr/actionBarSize</item>
     <item name="android:layout_width">match_parent</item>
     <item name="android:background">?attr/colorPrimary</item>
+  </style>
+  <!-- ScrollView -->
+  <style name="ActivityMain.ScrollView" parent="ApplicationStyle">
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:fillViewport">true</item>
   </style>
   <!-- - - - - - = = = = = = = = = = = = Detail Activity Layout = = = = = = = = = = = = - - - - - -->
   <!-- Coordinator Layout -->
@@ -85,6 +92,19 @@
     <item name="android:paddingStart">@dimen/default_padding</item>
     <item name="android:paddingEnd">@dimen/default_padding</item>
     <item name="android:paddingBottom">@dimen/default_padding</item>
+  </style>
+  <!-- Logo Frame Layout -->
+  <style name="ContentMain.FrameLayout" parent="ApplicationStyle">
+    <item name="android:layout_height">@dimen/main_frame_layout_height</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:background">@color/colorPrimaryDark</item>
+  </style>
+  <!-- Logo ImageView -->
+  <style name="ContentMain.ImageView" parent="ApplicationStyle">
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:src">@drawable/ic_cloud_download</item>
+    <item name="android:tint">@color/purple</item>
   </style>
   <!-- Loading Button -->
   <style name="ContentMain.LoadingButton" parent="ApplicationStyle">

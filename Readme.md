@@ -5,7 +5,7 @@
 * Minimum SDK: 24
 * Compile SDK: 30
 * Java Version: 11.0.10
-* Kotlin Version: 1.5.21
+* Kotlin Version: 1.5.30
 
 ## Installation
 Clone the Load Status repository:

@@ -1,5 +1,6 @@
 package dev.kelocen.loadstatus.button
 
+import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
@@ -7,7 +8,7 @@ import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
-import android.view.animation.AccelerateInterpolator
+import android.view.animation.OvershootInterpolator
 import androidx.core.content.withStyledAttributes
 import dev.kelocen.loadstatus.R
 import kotlin.properties.Delegates
@@ -64,56 +65,71 @@ class LoadingButton @JvmOverloads constructor(
      * A [ValueAnimator] to animate the [LoadingButton] by updating the [animationButtonWidth].
      */
     private var buttonAnimator = ValueAnimator.ofFloat().apply {
-        duration = 700
-        interpolator = AccelerateInterpolator()
-        addUpdateListener {
-            animationButtonWidth = it.animatedValue as Float
-            invalidate()
-        }
+        duration = 3000
+        interpolator = OvershootInterpolator(.1f)
     }
 
     /**
      * A [ValueAnimator] to animate the loading circle by updating the [animationCircleAngle].
+     *
+     * This [ValueAnimator] is responsible for indicating an ongoing download process, and will
+     * continue until the download is completed.
      */
     private var circleAnimator = ValueAnimator.ofFloat().apply {
-        duration = 1200
-        interpolator = AccelerateInterpolator()
+        duration = 3000
+        interpolator = OvershootInterpolator(.1f)
         repeatMode = ValueAnimator.RESTART
-        repeatCount = 3
-        addUpdateListener {
-            animationCircleAngle = it.animatedValue as Float
+        repeatCount = ValueAnimator.INFINITE
+    }
+
+    /**
+     * An [AnimatorSet] for [buttonAnimator] and [circleAnimator].
+     */
+    private var loadAnimatorSet = AnimatorSet().apply {
+        play(buttonAnimator).with(circleAnimator)
+        buttonAnimator.addUpdateListener { bAnimator ->
+            animationButtonWidth = bAnimator.animatedValue as Float
+        }
+        circleAnimator.addUpdateListener { cAnimator ->
+            animationCircleAngle = cAnimator.animatedValue as Float
             invalidate()
         }
     }
 
     /**
-     * A [ButtonState] object by [Delegates] to observe the button state and update the animation.
+     * A [ButtonState] by [Delegates.observable] to update the animation based on the button state.
      */
-    var buttonState: ButtonState by Delegates.observable(ButtonState.Reset) { _, _, newButtonState ->
+    var buttonState: ButtonState by Delegates.observable(
+            ButtonState.Reset) { _, _, newButtonState ->
         when (newButtonState) {
             ButtonState.Clicked -> {
-                buttonAnimator.setFloatValues(0f, widthSize)
-                circleAnimator.setFloatValues(0f, 360f)
+                buttonAnimator.setFloatValues(0f, widthSize)  // Assign values here after onMeasure
+                circleAnimator.setFloatValues(0f, 360f)       // is called and widthSize is updated
                 invalidate()
             }
             ButtonState.Loading -> {
-                if (!circleAnimator.isRunning) {
-                    buttonAnimator.start()
-                    circleAnimator.start()
+                if (!loadAnimatorSet.isRunning) {
+                    loadAnimatorSet.start()
                 }
             }
             ButtonState.Completed -> {
-                if (circleAnimator.isRunning) {
-                    circleAnimator.end()
-                    buttonAnimator.end()
+                if (loadAnimatorSet.isRunning) {
+                    loadAnimatorSet.end()
                 }
-                invalidate()
             }
             ButtonState.Reset -> {
                 invalidate()
             }
         }
     }
+
+    /**
+     * A [Runnable] used by [postDelayed] to reset the [ButtonState].
+     *
+     * This [Runnable] is used to create a small delay between drawing the finished loading button
+     * and drawing the default loading button.
+     */
+    private var loadingRunnable = Runnable { buttonState = ButtonState.Reset }
 
     init {
         context.withStyledAttributes(attrs, R.styleable.LoadingButton) {
@@ -138,18 +154,10 @@ class LoadingButton @JvmOverloads constructor(
     private fun updateButtonState() {
         if (!circleAnimator.isRunning) {
             when (buttonState) {
-                ButtonState.Clicked -> {
-                    buttonState = ButtonState.Loading
-                }
-                ButtonState.Loading -> {
-                    buttonState = ButtonState.Completed
-                }
-                ButtonState.Completed -> {
-                    buttonState = ButtonState.Reset
-                }
-                ButtonState.Reset -> {
-                    pass
-                }
+                ButtonState.Clicked -> buttonState = ButtonState.Loading
+                ButtonState.Loading -> pass // Assigned by MainActivity
+                ButtonState.Completed -> postDelayed(loadingRunnable, 500)
+                ButtonState.Reset -> pass
             }
         }
     }
@@ -158,10 +166,11 @@ class LoadingButton @JvmOverloads constructor(
      * Draws the [LoadingButton] using the [buttonState] and given [Canvas].
      */
     private fun drawLoadingButton(canvas: Canvas?) {
-        if (buttonState == ButtonState.Reset) {
-            drawDefaultLoadingButton(canvas)
-        } else if (buttonState == ButtonState.Loading) {
-            drawInProgressLoadingButton(canvas)
+        when (buttonState) {
+            ButtonState.Reset -> drawDefaultLoadingButton(canvas)
+            ButtonState.Completed -> drawCompletedLoadingButton(canvas)
+            ButtonState.Loading -> drawInProgressLoadingButton(canvas)
+            ButtonState.Clicked -> pass
         }
     }
 
@@ -184,6 +193,19 @@ class LoadingButton @JvmOverloads constructor(
     }
 
     /**
+     * Draws the completed loading button using the given [Canvas].
+     *
+     * This method visualizes a complete download by drawing a full loading button and circle when
+     * the download has finished.
+     */
+    private fun drawCompletedLoadingButton(canvas: Canvas?) {
+        canvas?.drawRect(drawButtonRectF(), defaultButtonPaint)
+        canvas?.drawRect(drawButtonRectF(right = widthSize), loadingButtonPaint)
+        drawButtonText(canvas, loadingButtonText)
+        drawLoadingCircle(canvas, startAngle = 360f)
+    }
+
+    /**
      * Returns the [RectF] for the [LoadingButton].
      */
     private fun drawButtonRectF(
@@ -201,16 +223,23 @@ class LoadingButton @JvmOverloads constructor(
     private fun drawButtonText(canvas: Canvas?, buttonText: String?) {
         canvas?.drawText(buttonText.toString(),
                          (widthSize / 2),
-                         (heightSize / 2) - ((textPaint.ascent() + textPaint.descent()) / 2),
+                         (heightSize / 2) - getDistToCenter(),
                          textPaint)
+    }
+
+    /**
+     * Returns the distance to the center of the text.
+     */
+    private fun getDistToCenter(): Float {
+        return (textPaint.ascent() + textPaint.descent()) / 2
     }
 
     /**
      * Draws the loading circle for the [LoadingButton] with the given [Canvas].
      */
-    private fun drawLoadingCircle(canvas: Canvas?) {
+    private fun drawLoadingCircle(canvas: Canvas?, startAngle: Float = 0f) {
         canvas?.drawArc(drawCircleRectF(),
-                        0f,
+                        startAngle,
                         animationCircleAngle,
                         true,
                         loadingCirclePaint)
@@ -221,9 +250,9 @@ class LoadingButton @JvmOverloads constructor(
      */
     private fun drawCircleRectF(
             left: Float = widthSize / 2 + (textPaint.measureText(loadingButtonText) / 1.9f),
-            top: Float = heightSize / 2 + textPaint.ascent() - ((textPaint.ascent() + textPaint.descent()) / 2),
+            top: Float = (heightSize / 2) + textPaint.ascent() - getDistToCenter(),
             right: Float = widthSize / 2 + (textPaint.measureText(loadingButtonText) * 0.795f),
-            bottom: Float = heightSize / 2 + textPaint.descent() - ((textPaint.ascent() + textPaint.descent()) / 2),
+            bottom: Float = (heightSize / 2) + textPaint.descent() - getDistToCenter(),
     ): RectF {
         return RectF(left, top, right, bottom)
     }
@@ -231,11 +260,7 @@ class LoadingButton @JvmOverloads constructor(
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val minw: Int = paddingLeft + paddingRight + suggestedMinimumWidth
         val w: Int = resolveSizeAndState(minw, widthMeasureSpec, 1)
-        val h: Int = resolveSizeAndState(
-                MeasureSpec.getSize(w),
-                heightMeasureSpec,
-                0
-        )
+        val h: Int = resolveSizeAndState(MeasureSpec.getSize(w), heightMeasureSpec, 0)
         widthSize = w.toFloat()
         heightSize = h.toFloat()
         setMeasuredDimension(w, h)

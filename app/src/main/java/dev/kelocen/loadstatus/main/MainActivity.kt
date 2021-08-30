@@ -96,10 +96,14 @@ class MainActivity : AppCompatActivity() {
                     content.customButtonDownload.buttonState = ButtonState.Clicked
                 }
                 downloadId = LoadUtility.getDownload(this, url)
-                // Pass properties to DownloadReceiver
                 downloadReceiver.name = name
                 downloadReceiver.url = url
                 downloadReceiver.downloadId = downloadId
+                LoadUtility.onCompletedListener = { onComplete ->
+                    if (onComplete == true) {
+                        content.customButtonDownload.buttonState = ButtonState.Completed
+                    }
+                }
             }
         }
     }

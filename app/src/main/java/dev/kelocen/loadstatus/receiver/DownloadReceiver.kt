@@ -8,6 +8,7 @@ import android.content.Intent
 import androidx.core.content.ContextCompat
 import dev.kelocen.loadstatus.R
 import dev.kelocen.loadstatus.download.ReceiverDownload
+import dev.kelocen.loadstatus.util.LoadUtility
 import dev.kelocen.loadstatus.util.sendNotification
 import java.text.SimpleDateFormat
 import java.util.*
@@ -25,6 +26,7 @@ class DownloadReceiver(private var downloadManager: DownloadManager) : Broadcast
     var downloadId: Long = 0
 
     override fun onReceive(context: Context, intent: Intent?) {
+        LoadUtility.isComplete = false // Reset for this download
         val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
         val notificationManager =
                 ContextCompat.getSystemService(context, NotificationManager::class.java)
@@ -33,6 +35,7 @@ class DownloadReceiver(private var downloadManager: DownloadManager) : Broadcast
             val sizeKb = (getTotalDownloadSize() / 1024).toDouble()
             val status = when (getDownloadStatus()) {
                 DownloadManager.STATUS_SUCCESSFUL -> {
+                    LoadUtility.isComplete = true
                     context.getString(R.string.detail_status_download_successful)
                 }
                 DownloadManager.STATUS_FAILED -> {

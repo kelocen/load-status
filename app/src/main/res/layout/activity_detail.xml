@@ -7,6 +7,7 @@
 
   <!-- App Bar -->
   <com.google.android.material.appbar.AppBarLayout
+    android:id="@+id/appbar_detail_activity"
     style="@style/ActivityDetail.AppBar"
     android:theme="@style/Theme.LoadStatus.AppBarOverlay">
 
@@ -20,15 +21,39 @@
 
   </com.google.android.material.appbar.AppBarLayout>
 
-  <!-- Okay Button -->
-  <Button
-    android:id="@+id/button_ok"
-    style="@style/ActivityDetail.ButtonOkay"
-    android:contentDescription="@string/detail_label_button_ok" />
+  <!-- Detail Activity Constraint Layout -->
+  <androidx.constraintlayout.widget.ConstraintLayout
+    style="@style/ActivityDetail.ConstraintLayout"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-  <!-- Content Detail Layout -->
-  <include
-    android:id="@+id/content_detail"
-    layout="@layout/content_detail" />
+    <!-- Content Main ScrollView -->
+    <ScrollView
+      android:id="@+id/scrollview_detail_content"
+      style="@style/ActivityDetail.ScrollView"
+      app:layout_constrainedHeight="true"
+      app:layout_constrainedWidth="true"
+      app:layout_constraintBottom_toTopOf="@+id/button_ok"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+      <!-- Content Detail Layout -->
+      <include
+        android:id="@+id/content_detail"
+        layout="@layout/content_detail" />
+    </ScrollView>
+
+    <!-- OK Button -->
+    <Button
+      android:id="@+id/button_ok"
+      style="@style/ActivityDetail.ButtonOk"
+      android:contentDescription="@string/detail_label_button_ok"
+      app:layout_constrainedHeight="true"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/scrollview_detail_content" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

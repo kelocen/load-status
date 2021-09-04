@@ -1,95 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
-  style="@style/ContentDetail.ConstraintLayout"
-  app:layout_behavior="@string/appbar_scrolling_view_behavior"
+  android:id="@+id/motion_layout_content_detail"
+  style="@style/ContentDetail.MotionLayout"
+  app:layoutDescription="@xml/content_detail_scene"
+  app:layout_constraintBottom_toBottomOf="parent"
+  app:layout_constraintEnd_toEndOf="parent"
+  app:layout_constraintStart_toStartOf="parent"
+  app:layout_constraintTop_toTopOf="parent"
   tools:context="dev.kelocen.loadstatus.detail.DetailActivity"
   tools:showIn="@layout/activity_detail">
 
   <!-- Download Date Label -->
   <TextView
     android:id="@+id/text_download_date_label"
-    style="@style/ActivityDetail.TextView.DownloadDateLabel"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+    style="@style/ActivityDetail.TextView.DownloadDateLabel" />
 
   <!-- Download Date -->
   <TextView
     android:id="@+id/text_download_date"
     style="@style/ActivityDetail.TextView"
-    app:layout_constraintStart_toStartOf="@+id/guideline2"
-    app:layout_constraintTop_toTopOf="parent"
     tools:text="08/21/2021" />
 
   <!-- Download Status Label -->
   <TextView
     android:id="@+id/text_download_status_label"
-    style="@style/ActivityDetail.TextView.DownloadStatusLabel"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/text_download_date_label" />
+    style="@style/ActivityDetail.TextView.DownloadStatusLabel" />
 
   <!-- Download Status -->
   <TextView
     android:id="@+id/text_download_status"
     style="@style/ActivityDetail.TextView"
-    app:layout_constraintStart_toStartOf="@+id/guideline2"
-    app:layout_constraintTop_toBottomOf="@+id/text_download_date"
     tools:text="Success" />
 
   <!-- Download Name Label -->
   <TextView
     android:id="@+id/text_download_name_label"
-    style="@style/ActivityDetail.TextView.DownloadNameLabel"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/text_download_status_label" />
+    style="@style/ActivityDetail.TextView.DownloadNameLabel" />
 
   <!-- Download Name -->
   <TextView
     android:id="@+id/text_download_name"
     style="@style/ActivityDetail.TextView"
-    app:layout_constraintStart_toStartOf="@+id/guideline2"
-    app:layout_constraintTop_toBottomOf="@+id/text_download_status"
     tools:text="file.zip" />
 
   <!-- Download Size Label -->
   <TextView
     android:id="@+id/text_download_size_label"
-    style="@style/ActivityDetail.TextView.DownloadSizeLabel"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/text_download_name_label" />
+    style="@style/ActivityDetail.TextView.DownloadSizeLabel" />
 
   <!-- Download Size -->
   <TextView
     android:id="@+id/text_download_size"
     style="@style/ActivityDetail.TextView"
-    app:layout_constraintStart_toStartOf="@+id/guideline2"
-    app:layout_constraintTop_toBottomOf="@+id/text_download_name"
     tools:text="150kb" />
 
   <!-- Download URL Label -->
   <TextView
     android:id="@+id/text_download_url_label"
-    style="@style/ActivityDetail.TextView.DownloadUrlLabel"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/text_download_size_label" />
+    style="@style/ActivityDetail.TextView.DownloadUrlLabel" />
 
   <!-- Download URL -->
   <TextView
     android:id="@+id/text_download_url"
-    style="@style/ActivityDetail.TextView"
-    app:layout_constrainedWidth="true"
+    style="@style/ActivityDetail.TextView.DownloadUrl"
+    tools:text="https://example.com/file.zip" />
+
+  <!-- View Spacer
+    Creates additional space below the last TextView to prevent
+    a cutoff in landscape mode.
+  -->
+  <View
+    android:id="@+id/view_spacer"
+    style="@style/ContentDetail.ViewSpacer"
+    app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="@id/guideline2"
-    app:layout_constraintTop_toBottomOf="@+id/text_download_size"
-    tools:text="example.com/file.zip" />
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/text_download_url" />
 
   <!-- Details Guideline -->
   <androidx.constraintlayout.widget.Guideline
-    android:id="@+id/guideline2"
+    android:id="@+id/guideline"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    app:layout_constraintGuide_begin="193dp" />
+    app:layout_constraintGuide_begin="@dimen/detail_guideline_begin" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>

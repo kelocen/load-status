@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <!-- Labels Transition -->
+  <Transition
+    android:id="@+id/transition_download_labels"
+    app:autoTransition="animateToEnd"
+    app:constraintSetEnd="@id/labels_end"
+    app:constraintSetStart="@+id/labels_start"
+    app:duration="1000" />
+
+  <!-- Details Transition -->
+  <Transition
+    android:id="@+id/transition_download_details"
+    app:constraintSetEnd="@+id/details_end"
+    app:constraintSetStart="@id/details_start"
+    app:duration="1000" />
+
+  <!-- Labels Start -->
+  <ConstraintSet android:id="@+id/labels_start">
+
+    <!-- Download Date Label -->
+    <Constraint
+      android:id="@+id/text_download_date_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:alpha="0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Download Status Label -->
+    <Constraint
+      android:id="@+id/text_download_status_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:alpha="0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Download Name Label -->
+    <Constraint
+      android:id="@+id/text_download_name_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:alpha="0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Download Size Label -->
+    <Constraint
+      android:id="@+id/text_download_size_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:alpha="0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Download URL Label -->
+    <Constraint
+      android:id="@+id/text_download_url_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:alpha="0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Download Date -->
+    <Constraint
+      android:id="@+id/text_download_date"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      android:alpha="0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Download Status -->
+    <Constraint
+      android:id="@+id/text_download_status"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      android:alpha="0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Download Name -->
+    <Constraint
+      android:id="@+id/text_download_name"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      android:alpha="0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Download Size -->
+    <Constraint
+      android:id="@+id/text_download_size"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      android:alpha="0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Download URL -->
+    <Constraint
+      android:id="@+id/text_download_url"
+      android:layout_width="@dimen/detail_textview_url_width"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      android:alpha="0"
+      app:layout_constrainedWidth="true"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  </ConstraintSet>
+
+  <!-- Labels End -->
+  <ConstraintSet android:id="@+id/labels_end">
+
+    <!-- Download Date Label -->
+    <Constraint
+      android:id="@+id/text_download_date_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Download Status Label -->
+    <Constraint
+      android:id="@+id/text_download_status_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/text_download_date_label" />
+
+    <!-- Download Name Label -->
+    <Constraint
+      android:id="@+id/text_download_name_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/text_download_status_label" />
+
+    <!-- Download Size Label -->
+    <Constraint
+      android:id="@+id/text_download_size_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/text_download_name_label" />
+
+    <!-- Download URL Label -->
+    <Constraint
+      android:id="@+id/text_download_url_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/text_download_size_label" />
+
+    <!-- Download Date -->
+    <Constraint
+      android:id="@+id/text_download_date"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      android:alpha="0"
+      app:layout_constraintStart_toStartOf="@id/text_download_name_label"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Download Status -->
+    <Constraint
+      android:id="@+id/text_download_status"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      android:alpha="0"
+      app:layout_constraintStart_toStartOf="@id/text_download_status_label"
+      app:layout_constraintTop_toBottomOf="@id/text_download_date" />
+
+    <!-- Download Name -->
+    <Constraint
+      android:id="@+id/text_download_name"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      android:alpha="0"
+      app:layout_constraintStart_toStartOf="@id/text_download_name_label"
+      app:layout_constraintTop_toBottomOf="@id/text_download_status" />
+
+    <!-- Download Size -->
+    <Constraint
+      android:id="@+id/text_download_size"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      android:alpha="0"
+      app:layout_constraintStart_toStartOf="@id/text_download_size_label"
+      app:layout_constraintTop_toBottomOf="@id/text_download_name" />
+
+    <!-- Download URL -->
+    <Constraint
+      android:id="@+id/text_download_url"
+      android:layout_width="@dimen/detail_textview_url_width"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      android:alpha="0"
+      app:layout_constrainedWidth="true"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="@id/text_download_url_label"
+      app:layout_constraintTop_toBottomOf="@id/text_download_size" />
+
+  </ConstraintSet>
+
+  <ConstraintSet android:id="@+id/details_start">
+
+    <!-- Download Date Label -->
+    <Constraint
+      android:id="@+id/text_download_date_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Download Status Label -->
+    <Constraint
+      android:id="@+id/text_download_status_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/text_download_date_label" />
+
+    <!-- Download Name Label -->
+    <Constraint
+      android:id="@+id/text_download_name_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/text_download_status_label" />
+
+    <!-- Download Size Label -->
+    <Constraint
+      android:id="@+id/text_download_size_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/text_download_name_label" />
+
+    <!-- Download URL Label -->
+    <Constraint
+      android:id="@+id/text_download_url_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/text_download_size_label" />
+
+    <!-- Download Date -->
+    <Constraint
+      android:id="@+id/text_download_date"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      android:alpha="0"
+      app:layout_constraintStart_toStartOf="@id/text_download_name_label"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Download Status -->
+    <Constraint
+      android:id="@+id/text_download_status"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      android:alpha="0"
+      app:layout_constraintStart_toStartOf="@id/text_download_status_label"
+      app:layout_constraintTop_toBottomOf="@id/text_download_date" />
+
+    <!-- Download Name -->
+    <Constraint
+      android:id="@+id/text_download_name"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      android:alpha="0"
+      app:layout_constraintStart_toStartOf="@id/text_download_name_label"
+      app:layout_constraintTop_toBottomOf="@id/text_download_status" />
+
+    <!-- Download Size -->
+    <Constraint
+      android:id="@+id/text_download_size"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      android:alpha="0"
+      app:layout_constraintStart_toStartOf="@id/text_download_size_label"
+      app:layout_constraintTop_toBottomOf="@id/text_download_name" />
+
+    <!-- Download URL -->
+    <Constraint
+      android:id="@+id/text_download_url"
+      android:layout_width="@dimen/detail_textview_url_width"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      android:alpha="0"
+      app:layout_constrainedWidth="true"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="@id/text_download_url_label"
+      app:layout_constraintTop_toBottomOf="@id/text_download_size" />
+
+  </ConstraintSet>
+
+  <!-- Details End-->
+  <ConstraintSet android:id="@+id/details_end">
+
+    <!-- Download Date Label -->
+    <Constraint
+      android:id="@+id/text_download_date_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Download Status Label -->
+    <Constraint
+      android:id="@+id/text_download_status_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/text_download_date_label" />
+
+    <!-- Download Name Label -->
+    <Constraint
+      android:id="@+id/text_download_name_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/text_download_status_label" />
+
+    <!-- Download Size Label -->
+    <Constraint
+      android:id="@+id/text_download_size_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/text_download_name_label" />
+
+    <!-- Download URL Label -->
+    <Constraint
+      android:id="@+id/text_download_url_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/text_download_size_label" />
+
+    <!-- Download Date -->
+    <Constraint
+      android:id="@+id/text_download_date"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      app:layout_constraintStart_toEndOf="@id/guideline"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Download Status -->
+    <Constraint
+      android:id="@+id/text_download_status"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      app:layout_constraintStart_toEndOf="@id/guideline"
+      app:layout_constraintTop_toBottomOf="@id/text_download_date" />
+
+    <!-- Download Name -->
+    <Constraint
+      android:id="@+id/text_download_name"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      app:layout_constraintStart_toEndOf="@id/guideline"
+      app:layout_constraintTop_toBottomOf="@id/text_download_status" />
+
+    <!-- Download Size -->
+    <Constraint
+      android:id="@+id/text_download_size"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      app:layout_constraintStart_toEndOf="@id/guideline"
+      app:layout_constraintTop_toBottomOf="@id/text_download_name" />
+
+    <!-- Download URL -->
+    <Constraint
+      android:id="@+id/text_download_url"
+      android:layout_width="@dimen/detail_textview_url_width"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/detail_textview_margin_top"
+      app:layout_constrainedWidth="true"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/guideline"
+      app:layout_constraintTop_toBottomOf="@id/text_download_size" />
+  </ConstraintSet>
+
+</MotionScene>

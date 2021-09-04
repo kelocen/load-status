@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.content.ContextCompat
 import dev.kelocen.loadstatus.R
 import dev.kelocen.loadstatus.databinding.ActivityDetailBinding
@@ -21,11 +22,57 @@ class DetailActivity : AppCompatActivity() {
 
     private lateinit var detail: ActivityDetailBinding
     private lateinit var content: ContentDetailBinding
+    private lateinit var motionLayout: MotionLayout
+    private val pass: Unit = Unit  // Placeholder for empty blocks
+
+    /**
+     * A [MotionLayout.TransitionListener] object that monitors the state of the motion
+     * scene transitions.
+     *
+     * This listener is responsible for activating the second transition of the motion scene after
+     * the first transition has completed.
+     */
+    private var motionListener = object : MotionLayout.TransitionListener {
+        override fun onTransitionStarted(
+                motionLayout: MotionLayout?,
+                startId: Int,
+                endId: Int,
+        ) {
+            pass
+        }
+
+        override fun onTransitionChange(
+                motionLayout: MotionLayout?,
+                startId: Int,
+                endId: Int,
+                progress: Float,
+        ) {
+            pass
+        }
+
+        override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
+            if (currentId == R.id.labels_end) {
+                motionLayout?.setTransition(R.id.transition_download_details)
+                motionLayout?.transitionToEnd()
+            }
+        }
+
+        override fun onTransitionTrigger(
+                motionLayout: MotionLayout?,
+                triggerId: Int,
+                positive: Boolean,
+                progress: Float,
+        ) {
+            pass
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         detail = ActivityDetailBinding.inflate(layoutInflater)
         content = detail.contentDetail
+        motionLayout = content.motionLayoutContentDetail
+        motionLayout.addTransitionListener(motionListener)
         setContentView(detail.root)
         setSupportActionBar(detail.toolbar)
         cancelNotifications()
@@ -47,15 +94,17 @@ class DetailActivity : AppCompatActivity() {
         }
         content.textDownloadStatus.text = download?.status
         content.textDownloadDate.text = download?.date
-        content.textDownloadSize.text = String.format(getString(R.string.detail_text_download_size),
-                                                      download?.sizeKb)
+        content.textDownloadSize.text =
+                String.format(getString(R.string.detail_text_download_size), download?.sizeKb)
         content.textDownloadName.text = download?.name
         content.textDownloadUrl.text = download?.url
-
     }
 
     /**
-     * Cancels notifications when the notification action button is used to open the detail screen.
+     * Cancels notifications when [DetailActivity] is created.
+     *
+     * This method insures that notifications will be canceled when the notification action
+     * button is used to open the activity.
      */
     private fun cancelNotifications() {
         val notificationManager =
@@ -68,7 +117,7 @@ class DetailActivity : AppCompatActivity() {
      */
     private fun setupOkButton() {
         detail.buttonOk.setOnClickListener {
-            onBackPressed()
+            finish()
         }
     }
 }

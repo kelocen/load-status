@@ -12,4 +12,7 @@
   <dimen name="detail_button_ok_margin">16dp</dimen>
   <dimen name="detail_button_ok_height">60dp</dimen>
   <dimen name="detail_textview_margin_top">50dp</dimen>
+  <dimen name="detail_textview_url_width">0dp</dimen>
+  <dimen name="detail_view_spacer_height">20dp</dimen>
+  <dimen name="detail_guideline_begin">190dp</dimen>
 </resources>

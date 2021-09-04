@@ -42,39 +42,19 @@
     <item name="android:layout_width">match_parent</item>
     <item name="android:background">?attr/colorPrimary</item>
   </style>
-  <!-- File Label TextViews -->
-  <style name="ActivityDetail.TextView" parent="ApplicationStyle">
-    <item name="android:layout_height">wrap_content</item>
-    <item name="android:layout_width">wrap_content</item>
-    <item name="android:layout_marginTop">@dimen/detail_textview_margin_top</item>
+  <!-- Constraint Layout -->
+  <style name="ActivityDetail.ConstraintLayout" parent="ApplicationStyle">
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:layout_width">match_parent</item>
   </style>
-  <!-- Download Label Name TextView -->
-  <style name="ActivityDetail.TextView.DownloadNameLabel" parent="ActivityDetail.TextView">
-    <item name="android:text">@string/detail_text_download_name_label</item>
-    <item name="android:textStyle">bold</item>
-  </style>
-  <!-- Download Status Label TextView -->
-  <style name="ActivityDetail.TextView.DownloadStatusLabel" parent="ActivityDetail.TextView">
-    <item name="android:text">@string/detail_text_download_status_label</item>
-    <item name="android:textStyle">bold</item>
-  </style>
-  <!-- Download Size Label TextView -->
-  <style name="ActivityDetail.TextView.DownloadSizeLabel" parent="ActivityDetail.TextView">
-    <item name="android:text">@string/detail_text_download_size_label</item>
-    <item name="android:textStyle">bold</item>
-  </style>
-  <!-- Download Date Label TextView -->
-  <style name="ActivityDetail.TextView.DownloadDateLabel" parent="ActivityDetail.TextView">
-    <item name="android:text">@string/detail_text_download_date_label</item>
-    <item name="android:textStyle">bold</item>
-  </style>
-  <!-- Download Date Label TextView -->
-  <style name="ActivityDetail.TextView.DownloadUrlLabel" parent="ActivityDetail.TextView">
-    <item name="android:text">@string/detail_text_download_url_label</item>
-    <item name="android:textStyle">bold</item>
+  <!-- ScrollView -->
+  <style name="ActivityDetail.ScrollView" parent="ApplicationStyle">
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:fillViewport">true</item>
   </style>
   <!-- Okay Button -->
-  <style name="ActivityDetail.ButtonOkay" parent="ApplicationStyle">
+  <style name="ActivityDetail.ButtonOk" parent="ApplicationStyle">
     <item name="android:layout_height">@dimen/detail_button_ok_height</item>
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_margin">@dimen/detail_button_ok_margin</item>
@@ -126,11 +106,52 @@
   </style>
   <!-- - - - - - = = = = = = = = = = = = Detail Content Layout = = = = = = = = = = = = - - - - - -->
   <!-- Constraint Layout -->
-  <style name="ContentDetail.ConstraintLayout" parent="ApplicationStyle">
+  <style name="ContentDetail.MotionLayout" parent="ApplicationStyle">
     <item name="android:layout_height">match_parent</item>
     <item name="android:layout_width">match_parent</item>
     <item name="android:paddingStart">@dimen/default_padding</item>
     <item name="android:paddingEnd">@dimen/default_padding</item>
     <item name="android:paddingBottom">@dimen/default_padding</item>
+  </style>
+  <!-- Constraint Layout -->
+  <!-- Download Label TextViews -->
+  <style name="ActivityDetail.TextView" parent="ApplicationStyle">
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_marginTop">@dimen/detail_textview_margin_top</item>
+  </style>
+  <!-- Download Label Name TextView -->
+  <style name="ActivityDetail.TextView.DownloadNameLabel" parent="ActivityDetail.TextView">
+    <item name="android:text">@string/detail_text_download_name_label</item>
+    <item name="android:textStyle">bold</item>
+  </style>
+  <!-- Download Status Label TextView -->
+  <style name="ActivityDetail.TextView.DownloadStatusLabel" parent="ActivityDetail.TextView">
+    <item name="android:text">@string/detail_text_download_status_label</item>
+    <item name="android:textStyle">bold</item>
+  </style>
+  <!-- Download Size Label TextView -->
+  <style name="ActivityDetail.TextView.DownloadSizeLabel" parent="ActivityDetail.TextView">
+    <item name="android:text">@string/detail_text_download_size_label</item>
+    <item name="android:textStyle">bold</item>
+  </style>
+  <!-- Download Date Label TextView -->
+  <style name="ActivityDetail.TextView.DownloadDateLabel" parent="ActivityDetail.TextView">
+    <item name="android:text">@string/detail_text_download_date_label</item>
+    <item name="android:textStyle">bold</item>
+  </style>
+  <!-- Download Url Label TextView -->
+  <style name="ActivityDetail.TextView.DownloadUrlLabel" parent="ActivityDetail.TextView">
+    <item name="android:text">@string/detail_text_download_url_label</item>
+    <item name="android:textStyle">bold</item>
+  </style>
+  <!-- Download URL TextView -->
+  <style name="ActivityDetail.TextView.DownloadUrl" parent="ActivityDetail.TextView">
+    <item name="android:layout_width">@dimen/detail_textview_url_width</item>
+  </style>
+  <!-- View Space -->
+  <style name="ContentDetail.ViewSpacer" parent="ApplicationStyle">
+    <item name="android:layout_height">@dimen/detail_view_spacer_height</item>
+    <item name="android:layout_width">match_parent</item>
   </style>
 </resources>

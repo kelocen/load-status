@@ -16,7 +16,6 @@
   <string name="detail_text_download_date_label">Download Date:</string>
   <string name="detail_text_download_size_label">Download Size:</string>
   <string name="detail_text_download_url_label">Download URL:</string>
-
   <string name="detail_text_download_size">%sKB</string>
   <string name="detail_status_download_successful">Successful</string>
   <string name="detail_status_download_failed">Failed</string>
@@ -25,8 +24,11 @@
   <string name="main_text_glide_by_bumptech">Glide - Image Loading Library by BumpTech.</string>
   <string name="main_text_loadapp_by_udacity">LoadApp - Current repository by Udacity.</string>
   <string name="main_text_retrofit_by_square">Retrofit - Type-safe HTTP client for Android and Java by Square, Inc.</string>
+  <string name="main_text_custom_url">Enter a custom download URL.</string>
   <string name="main_label_default_button_text">Download</string>
   <string name="main_label_loading_button_text">Loading…</string>
-  <string name="main_toast_instruct_to_download">Please select the file to download.</string>
+  <string name="main_toast_instruct_to_download">Please select a file to download.</string>
+  <string name="main_toast_inform_invalid_url">Please enter a valid URL.</string>
   <string name="main_load_status_logo_description">A cloud with a bidirectional arrow pointing up and down.</string>
+  <string name="enter_a_custom_download_url">Enter a custom download URL.</string>
 </resources>

@@ -8,6 +8,8 @@
   <dimen name="main_button_loading_width">0dp</dimen>
   <dimen name="main_button_loading_layout_margin">4dp</dimen>
   <dimen name="main_frame_layout_height">200dp</dimen>
+  <dimen name="main_edit_text_margin_start">30dp</dimen>
+  <dimen name="main_edit_text_margin_bottom">30dp</dimen>
   <!-- Detail Screen -->
   <dimen name="detail_button_ok_margin">16dp</dimen>
   <dimen name="detail_button_ok_height">60dp</dimen>

@@ -35,7 +35,24 @@
       style="@style/ContentMain.RadioButtons"
       android:text="@string/main_text_retrofit_by_square" />
 
+    <!-- Custom URL Button -->
+    <RadioButton
+      android:id="@+id/radio_button_custom_url"
+      style="@style/ContentMain.RadioButtons"
+      android:text="@string/main_text_custom_url" />
+
   </RadioGroup>
+
+  <!-- Custom URL Field -->
+  <EditText
+    android:id="@+id/edit_custom_url"
+    style="@style/ContentMain.EditText"
+    android:hint="@string/enter_a_custom_download_url"
+    android:importantForAutofill="no"
+    app:layout_constrainedWidth="true"
+    app:layout_constraintBottom_toBottomOf="@id/radio_group_item_list"
+    app:layout_constraintEnd_toEndOf="@id/radio_group_item_list"
+    app:layout_constraintStart_toStartOf="@id/radio_group_item_list" />
 
   <!-- Loading Button -->
   <dev.kelocen.loadstatus.button.LoadingButton

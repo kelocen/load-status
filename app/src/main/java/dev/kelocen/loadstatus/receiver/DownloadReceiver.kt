@@ -35,7 +35,6 @@ class DownloadReceiver(private var downloadManager: DownloadManager) : Broadcast
             val sizeKb = (getTotalDownloadSize() / 1024).toDouble()
             val status = when (getDownloadStatus()) {
                 DownloadManager.STATUS_SUCCESSFUL -> {
-                    LoadUtility.isComplete = true
                     context.getString(R.string.detail_status_download_successful)
                 }
                 DownloadManager.STATUS_FAILED -> {
@@ -45,6 +44,7 @@ class DownloadReceiver(private var downloadManager: DownloadManager) : Broadcast
                     context.getString(R.string.detail_status_download_unknown_error)
                 }
             }
+            LoadUtility.isComplete = true
             download = ReceiverDownload(name, url, sizeKb, status, date)
             notificationManager?.sendNotification(String.format(context.getString(R.string.notification_description),
                                                                 download.status), context, download)

@@ -100,12 +100,21 @@
   </style>
   <!-- Radio Buttons -->
   <style name="ContentMain.RadioButtons" parent="Theme.LoadStatus">
-    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:layout_marginBottom">@dimen/main_radio_button_margin_bottom</item>
   </style>
+  <!-- Edit Text -->
+  <style name="ContentMain.EditText" parent="ApplicationStyle">
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_marginStart">@dimen/main_edit_text_margin_start</item>
+    <item name="android:layout_marginBottom">@dimen/main_edit_text_margin_bottom</item>
+    <item name="android:visibility">gone</item>
+    <item name="android:inputType">textUri</item>
+  </style>
   <!-- - - - - - = = = = = = = = = = = = Detail Content Layout = = = = = = = = = = = = - - - - - -->
-  <!-- Constraint Layout -->
+  <!-- Motion Layout -->
   <style name="ContentDetail.MotionLayout" parent="ApplicationStyle">
     <item name="android:layout_height">match_parent</item>
     <item name="android:layout_width">match_parent</item>
@@ -113,7 +122,6 @@
     <item name="android:paddingEnd">@dimen/default_padding</item>
     <item name="android:paddingBottom">@dimen/default_padding</item>
   </style>
-  <!-- Constraint Layout -->
   <!-- Download Label TextViews -->
   <style name="ActivityDetail.TextView" parent="ApplicationStyle">
     <item name="android:layout_height">wrap_content</item>

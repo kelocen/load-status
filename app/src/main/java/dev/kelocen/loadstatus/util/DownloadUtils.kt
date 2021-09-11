@@ -3,6 +3,8 @@ package dev.kelocen.loadstatus.util
 import android.app.DownloadManager
 import android.content.Context
 import android.net.Uri
+import android.os.Environment
+import android.util.Patterns
 import androidx.appcompat.app.AppCompatActivity
 import dev.kelocen.loadstatus.R
 import dev.kelocen.loadstatus.button.ButtonState
@@ -41,9 +43,9 @@ object LoadUtility {
     /**
      * Enqueues a new download with [DownloadManager] and returns the download ID.
      */
-    fun getDownload(context: Context, downloadUrl: String?): Long {
+    fun getDownload(context: Context, downloadUrl: String?, downloadName: String?): Long {
         val downloadManager = getDownloadManager(context)
-        return downloadManager.enqueue(getRequest(context, downloadUrl))
+        return downloadManager.enqueue(getRequest(context, downloadUrl, downloadName))
     }
 
     /**
@@ -54,14 +56,29 @@ object LoadUtility {
     }
 
     /**
-     * Returns a [DownloadManager.Request] built from the given [Context] and URL.
+     * Returns a [DownloadManager.Request] built from the given [Context], URL and download name.
      */
-    private fun getRequest(context: Context, downloadUrl: String?): DownloadManager.Request {
+    private fun getRequest(
+            context: Context,
+            downloadUrl: String?,
+            downloadName: String?,
+    ): DownloadManager.Request {
         return DownloadManager.Request(Uri.parse(downloadUrl))
                 .setTitle(context.getString(R.string.app_name))
                 .setDescription(context.getString(R.string.app_description))
                 .setRequiresCharging(false)
                 .setAllowedOverMetered(true)
                 .setAllowedOverRoaming(true)
+                .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, downloadName)
+    }
+
+    /**
+     * A helper function that validates the given URL and returns the download name.
+     */
+    fun getDownloadName(url: String): String? {
+        return if (Patterns.WEB_URL.matcher(url).matches()) {
+            val urlSegments = url.split("/")
+            urlSegments[urlSegments.size - 1]
+        } else null
     }
 }

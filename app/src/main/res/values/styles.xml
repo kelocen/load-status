@@ -162,4 +162,11 @@
     <item name="android:layout_height">@dimen/detail_view_spacer_height</item>
     <item name="android:layout_width">match_parent</item>
   </style>
+  <!-- Open Download Image -->
+  <style name="ContentDetail.ImageView" parent="ApplicationStyle">
+    <item name="android:layout_height">@dimen/detail_open_download_link_height</item>
+    <item name="android:layout_width">@dimen/detail_open_download_link_width</item>
+    <item name="android:src">@drawable/ic_open_downloads</item>
+    <item name="android:tint">@color/colorLink</item>
+  </style>
 </resources>

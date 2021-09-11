@@ -45,6 +45,12 @@
     style="@style/ActivityDetail.TextView"
     tools:text="file.zip" />
 
+  <!-- Open Download Image -->
+  <ImageView
+    android:id="@+id/image_open_download"
+    style="@style/ContentDetail.ImageView"
+    android:contentDescription="@string/open_download_folder" />
+
   <!-- Download Size Label -->
   <TextView
     android:id="@+id/text_download_size_label"

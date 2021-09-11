@@ -21,9 +21,6 @@ import dev.kelocen.loadstatus.databinding.ActivityMainBinding
 import dev.kelocen.loadstatus.databinding.ContentMainBinding
 import dev.kelocen.loadstatus.download.ReceiverDownload
 import dev.kelocen.loadstatus.receiver.DownloadReceiver
-import dev.kelocen.loadstatus.util.Constants.FILE_NAME_GLIDE
-import dev.kelocen.loadstatus.util.Constants.FILE_NAME_LOAD_APP
-import dev.kelocen.loadstatus.util.Constants.FILE_NAME_RETROFIT
 import dev.kelocen.loadstatus.util.Constants.URL_BUMPTECH_GLIDE
 import dev.kelocen.loadstatus.util.Constants.URL_LOAD_APP
 import dev.kelocen.loadstatus.util.Constants.URL_RETROFIT
@@ -42,6 +39,7 @@ class MainActivity : AppCompatActivity() {
     private var url: String? = null
     private var downloadId: Long = 0
     private var pass: Unit = Unit // Placeholder for empty blocks
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,15 +78,15 @@ class MainActivity : AppCompatActivity() {
             when (checkedId) {
                 content.radioButtonGlide.id -> {
                     url = URL_BUMPTECH_GLIDE
-                    name = FILE_NAME_GLIDE
+                    name = LoadUtility.getDownloadName(URL_BUMPTECH_GLIDE)
                 }
                 content.radioButtonLoadApp.id -> {
                     url = URL_LOAD_APP
-                    name = FILE_NAME_LOAD_APP
+                    name = LoadUtility.getDownloadName(URL_LOAD_APP)
                 }
                 content.radioButtonRetrofit.id -> {
                     url = URL_RETROFIT
-                    name = FILE_NAME_RETROFIT
+                    name = LoadUtility.getDownloadName(URL_RETROFIT)
                 }
                 content.radioButtonCustomUrl.id -> {
                     url = null                                      // Clear previous URL
@@ -115,12 +113,10 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(editCustomUrl: Editable?) {
-                val customUrl = editCustomUrl.toString()
-                if (Patterns.WEB_URL.matcher(customUrl).matches()) {
-                    url = customUrl
-                    val urlSegments = url!!.split("/")
-                    name = urlSegments[urlSegments.size - 1]
+                if (Patterns.WEB_URL.matcher(editCustomUrl.toString()).matches()) {
+                    url = editCustomUrl.toString()
                 }
+                name = LoadUtility.getDownloadName(editCustomUrl.toString())
             }
         })
     }
@@ -140,7 +136,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 content.customButtonDownload.buttonState == ButtonState.Reset -> {
                     content.customButtonDownload.buttonState = ButtonState.Clicked
-                    downloadId = LoadUtility.getDownload(this, url)
+                    downloadId = LoadUtility.getDownload(this, url, name)
                     downloadReceiver.name = name
                     downloadReceiver.url = url
                     downloadReceiver.downloadId = downloadId

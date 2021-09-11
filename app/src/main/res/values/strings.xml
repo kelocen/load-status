@@ -20,6 +20,7 @@
   <string name="detail_status_download_successful">Successful</string>
   <string name="detail_status_download_failed">Failed</string>
   <string name="detail_status_download_unknown_error">Error</string>
+  <string name="open_download_folder">Open Download Folder</string>
   <!-- Main Screen -->
   <string name="main_text_glide_by_bumptech">Glide - Image Loading Library by BumpTech.</string>
   <string name="main_text_loadapp_by_udacity">LoadApp - Current repository by Udacity.</string>

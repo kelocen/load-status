@@ -17,4 +17,7 @@
   <dimen name="detail_textview_url_width">0dp</dimen>
   <dimen name="detail_view_spacer_height">20dp</dimen>
   <dimen name="detail_guideline_begin">190dp</dimen>
+  <dimen name="detail_open_download_link_height">25dp</dimen>
+  <dimen name="detail_open_download_link_width">25dp</dimen>
+  <dimen name="detail_open_download_link_margin_start">8dp</dimen>
 </resources>

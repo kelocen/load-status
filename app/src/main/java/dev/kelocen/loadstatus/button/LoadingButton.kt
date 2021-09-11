@@ -195,8 +195,8 @@ class LoadingButton @JvmOverloads constructor(
     /**
      * Draws the completed loading button using the given [Canvas].
      *
-     * This method visualizes a complete download by drawing a full loading button and circle when
-     * the download has finished.
+     * This method provides a visual indication that the download has completed by drawing a full
+     * loading button and circle when the download has finished.
      */
     private fun drawCompletedLoadingButton(canvas: Canvas?) {
         canvas?.drawRect(drawButtonRectF(), defaultButtonPaint)

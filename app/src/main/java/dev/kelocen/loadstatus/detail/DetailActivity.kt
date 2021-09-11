@@ -1,8 +1,11 @@
 package dev.kelocen.loadstatus.detail
 
+import android.app.DownloadManager
 import android.app.NotificationManager
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View.OnClickListener
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.MotionLayout
@@ -78,6 +81,7 @@ class DetailActivity : AppCompatActivity() {
         cancelNotifications()
         setupOkButton()
         populateTextFields()
+        setupOpenDownloadLink()
     }
 
     /**
@@ -96,8 +100,18 @@ class DetailActivity : AppCompatActivity() {
         content.textDownloadDate.text = download?.date
         content.textDownloadSize.text =
                 String.format(getString(R.string.detail_text_download_size), download?.sizeKb)
-        content.textDownloadName.text = download?.name
         content.textDownloadUrl.text = download?.url
+        content.textDownloadName.text = download?.name
+    }
+
+    /**
+     * Configures the [OnClickListener] for the to open the **Download** folder to
+     * view the downloaded files.
+     */
+    private fun setupOpenDownloadLink() {
+        content.imageOpenDownload.setOnClickListener {
+            startActivity(Intent(DownloadManager.ACTION_VIEW_DOWNLOADS))
+        }
     }
 
     /**

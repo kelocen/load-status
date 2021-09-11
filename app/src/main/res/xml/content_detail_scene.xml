@@ -95,6 +95,17 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Open Download Link -->
+    <Constraint
+      android:id="@+id/image_open_download"
+      android:layout_width="@dimen/detail_open_download_link_width"
+      android:layout_height="@dimen/detail_open_download_link_height"
+      android:layout_marginStart="@dimen/detail_open_download_link_margin_start"
+      android:alpha="0"
+      app:layout_constraintBottom_toBottomOf="@+id/text_download_name"
+      app:layout_constraintStart_toEndOf="@id/text_download_name"
+      app:layout_constraintTop_toTopOf="@+id/text_download_name" />
+
     <!-- Download Size -->
     <Constraint
       android:id="@+id/text_download_size"
@@ -195,6 +206,17 @@
       android:alpha="0"
       app:layout_constraintStart_toStartOf="@id/text_download_name_label"
       app:layout_constraintTop_toBottomOf="@id/text_download_status" />
+
+    <!-- Open Download Link -->
+    <Constraint
+      android:id="@+id/image_open_download"
+      android:layout_width="@dimen/detail_open_download_link_width"
+      android:layout_height="@dimen/detail_open_download_link_height"
+      android:layout_marginStart="@dimen/detail_open_download_link_margin_start"
+      android:alpha="0"
+      app:layout_constraintBottom_toBottomOf="@+id/text_download_name"
+      app:layout_constraintStart_toEndOf="@id/text_download_name"
+      app:layout_constraintTop_toTopOf="@+id/text_download_name" />
 
     <!-- Download Size -->
     <Constraint
@@ -297,6 +319,17 @@
       app:layout_constraintStart_toStartOf="@id/text_download_name_label"
       app:layout_constraintTop_toBottomOf="@id/text_download_status" />
 
+    <!-- Open Download Link -->
+    <Constraint
+      android:id="@+id/image_open_download"
+      android:layout_width="@dimen/detail_open_download_link_width"
+      android:layout_height="@dimen/detail_open_download_link_height"
+      android:layout_marginStart="@dimen/detail_open_download_link_margin_start"
+      android:alpha="0"
+      app:layout_constraintBottom_toBottomOf="@+id/text_download_name"
+      app:layout_constraintStart_toEndOf="@id/text_download_name"
+      app:layout_constraintTop_toTopOf="@+id/text_download_name" />
+
     <!-- Download Size -->
     <Constraint
       android:id="@+id/text_download_size"
@@ -395,6 +428,16 @@
       android:layout_marginTop="@dimen/detail_textview_margin_top"
       app:layout_constraintStart_toEndOf="@id/guideline"
       app:layout_constraintTop_toBottomOf="@id/text_download_status" />
+
+    <!-- Open Download Image -->
+    <Constraint
+      android:id="@+id/image_open_download"
+      android:layout_width="@dimen/detail_open_download_link_width"
+      android:layout_height="@dimen/detail_open_download_link_height"
+      android:layout_marginStart="@dimen/detail_open_download_link_margin_start"
+      app:layout_constraintBottom_toBottomOf="@+id/text_download_name"
+      app:layout_constraintStart_toEndOf="@id/text_download_name"
+      app:layout_constraintTop_toTopOf="@+id/text_download_name" />
 
     <!-- Download Size -->
     <Constraint

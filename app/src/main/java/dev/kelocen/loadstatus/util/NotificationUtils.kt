@@ -29,7 +29,6 @@ fun NotificationManager.sendNotification(
     val downloadBundle = Bundle()
     downloadBundle.putParcelable(DOWNLOAD, download)
     detailIntent.putExtra(DOWNLOAD_BUNDLE, downloadBundle)
-
     val pendingIntent = PendingIntent.getActivity(applicationContext,
                                                   NOTIFICATION_ID,
                                                   detailIntent,

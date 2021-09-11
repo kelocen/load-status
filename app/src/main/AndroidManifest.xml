@@ -14,9 +14,9 @@
     android:supportsRtl="true"
     android:theme="@style/Theme.LoadStatus">
     <activity
+      android:configChanges="orientation|keyboardHidden|keyboard|screenSize"
       android:exported="true"
       android:name=".main.MainActivity"
-      android:configChanges="orientation|keyboardHidden|keyboard|screenSize"
       android:theme="@style/Theme.LoadStatus.NoActionBar">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />

@@ -40,7 +40,6 @@ class MainActivity : AppCompatActivity() {
     private var downloadId: Long = 0
     private var pass: Unit = Unit // Placeholder for empty blocks
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity = ActivityMainBinding.inflate(layoutInflater)

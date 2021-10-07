@@ -3,7 +3,7 @@
 
 ## Project Requirements
 * Minimum SDK: 24
-* Compile SDK: 30
+* Compile SDK: 31
 * Java Version: 11.0.10
 * Kotlin Version: 1.5.30
 

@@ -114,8 +114,8 @@ class MainActivity : AppCompatActivity() {
             override fun afterTextChanged(editCustomUrl: Editable?) {
                 if (Patterns.WEB_URL.matcher(editCustomUrl.toString()).matches()) {
                     url = editCustomUrl.toString()
+                    name = LoadUtility.getDownloadName(editCustomUrl.toString())
                 }
-                name = LoadUtility.getDownloadName(editCustomUrl.toString())
             }
         })
     }

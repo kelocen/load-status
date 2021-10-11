@@ -17,11 +17,11 @@ import kotlin.properties.Delegates
  * A [View] subclass for the custom button.
  */
 class LoadingButton @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0,
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0,
 ) :
-        View(context, attrs, defStyleAttr) {
+    View(context, attrs, defStyleAttr) {
     private var widthSize = 0f
     private var heightSize = 0f
     private var animationButtonWidth = 0f
@@ -66,20 +66,26 @@ class LoadingButton @JvmOverloads constructor(
      */
     private var buttonAnimator = ValueAnimator.ofFloat().apply {
         duration = 3000
+        repeatMode = ValueAnimator.RESTART
+        repeatCount = ValueAnimator.INFINITE
         interpolator = OvershootInterpolator(.1f)
+        addUpdateListener { bAnimator ->
+            animationButtonWidth = bAnimator.animatedValue as Float
+        }
     }
 
     /**
      * A [ValueAnimator] to animate the loading circle by updating the [animationCircleAngle].
-     *
-     * This [ValueAnimator] is responsible for indicating an ongoing download process, and will
-     * continue until the download is completed.
      */
     private var circleAnimator = ValueAnimator.ofFloat().apply {
         duration = 3000
         interpolator = OvershootInterpolator(.1f)
         repeatMode = ValueAnimator.RESTART
         repeatCount = ValueAnimator.INFINITE
+        addUpdateListener { cAnimator ->
+            animationCircleAngle = cAnimator.animatedValue as Float
+            invalidate()
+        }
     }
 
     /**
@@ -87,24 +93,18 @@ class LoadingButton @JvmOverloads constructor(
      */
     private var loadAnimatorSet = AnimatorSet().apply {
         play(buttonAnimator).with(circleAnimator)
-        buttonAnimator.addUpdateListener { bAnimator ->
-            animationButtonWidth = bAnimator.animatedValue as Float
-        }
-        circleAnimator.addUpdateListener { cAnimator ->
-            animationCircleAngle = cAnimator.animatedValue as Float
-            invalidate()
-        }
     }
 
     /**
      * A [ButtonState] by [Delegates.observable] to update the animation based on the button state.
      */
     var buttonState: ButtonState by Delegates.observable(
-            ButtonState.Reset) { _, _, newButtonState ->
+        ButtonState.Reset
+    ) { _, _, newButtonState ->
         when (newButtonState) {
             ButtonState.Clicked -> {
-                buttonAnimator.setFloatValues(0f, widthSize)  // Assign values here after onMeasure
-                circleAnimator.setFloatValues(0f, 360f)       // is called and widthSize is updated
+                buttonAnimator.setFloatValues(0f, widthSize) // Assign values here after onMeasure
+                circleAnimator.setFloatValues(0f, 360f)      // is called and widthSize is updated
                 invalidate()
             }
             ButtonState.Loading -> {
@@ -146,6 +146,17 @@ class LoadingButton @JvmOverloads constructor(
         super.onDraw(canvas)
         updateButtonState()
         drawLoadingButton(canvas)
+    }
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        if (oldw != 0 && oldw != w) {
+            if (loadAnimatorSet.isRunning) {
+                loadAnimatorSet.cancel()
+                buttonAnimator.setFloatValues(0f, w.toFloat())
+                loadAnimatorSet.start()
+            }
+        }
     }
 
     /**
@@ -209,10 +220,10 @@ class LoadingButton @JvmOverloads constructor(
      * Returns the [RectF] for the [LoadingButton].
      */
     private fun drawButtonRectF(
-            left: Float = 0f,
-            top: Float = 0f,
-            right: Float = widthSize,
-            bottom: Float = heightSize,
+        left: Float = 0f,
+        top: Float = 0f,
+        right: Float = widthSize,
+        bottom: Float = heightSize,
     ): RectF {
         return RectF(left, top, right, bottom)
     }
@@ -221,10 +232,12 @@ class LoadingButton @JvmOverloads constructor(
      * Draws the text for the [LoadingButton] with the given [Canvas].
      */
     private fun drawButtonText(canvas: Canvas?, buttonText: String?) {
-        canvas?.drawText(buttonText.toString(),
-                         (widthSize / 2),
-                         (heightSize / 2) - getDistToCenter(),
-                         textPaint)
+        canvas?.drawText(
+            buttonText.toString(),
+            (widthSize / 2),
+            (heightSize / 2) - getDistToCenter(),
+            textPaint
+        )
     }
 
     /**
@@ -238,21 +251,23 @@ class LoadingButton @JvmOverloads constructor(
      * Draws the loading circle for the [LoadingButton] with the given [Canvas].
      */
     private fun drawLoadingCircle(canvas: Canvas?, startAngle: Float = 0f) {
-        canvas?.drawArc(drawCircleRectF(),
-                        startAngle,
-                        animationCircleAngle,
-                        true,
-                        loadingCirclePaint)
+        canvas?.drawArc(
+            drawCircleRectF(),
+            startAngle,
+            animationCircleAngle,
+            true,
+            loadingCirclePaint
+        )
     }
 
     /**
      * Returns the [RectF] used for the loading circle.
      */
     private fun drawCircleRectF(
-            left: Float = widthSize / 2 + (textPaint.measureText(loadingButtonText) / 1.9f),
-            top: Float = (heightSize / 2) + textPaint.ascent() - getDistToCenter(),
-            right: Float = widthSize / 2 + (textPaint.measureText(loadingButtonText) * 0.795f),
-            bottom: Float = (heightSize / 2) + textPaint.descent() - getDistToCenter(),
+        left: Float = widthSize / 2 + (textPaint.measureText(loadingButtonText) / 1.9f),
+        top: Float = (heightSize / 2) + textPaint.ascent() - getDistToCenter(),
+        right: Float = widthSize / 2 + (textPaint.measureText(loadingButtonText) * 0.795f),
+        bottom: Float = (heightSize / 2) + textPaint.descent() - getDistToCenter(),
     ): RectF {
         return RectF(left, top, right, bottom)
     }
